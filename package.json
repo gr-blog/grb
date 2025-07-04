@@ -1,0 +1,56 @@
+{
+  "name": "@grb/workspace",
+  "private": true,
+  "author": "GregRos",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach --all --topological-dev --parallel run build",
+    "build:clean": "run-s clean build",
+    "clean": "yarn workspaces foreach --all --parallel run clean",
+    "eslint:check": "eslint 'packages/**/*.{ts,mts,cts,js,mjs,cjs}'",
+    "eslint:fix": "eslint --fix ''packages/**/*.{ts,mts,cts,js,mjs,cjs}''",
+    "lint:check": "prettier --check 'packages/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}' && eslint 'packages/**/*.{ts,mts,cts,js,mjs,cjs}'",
+    "lint:fix": "prettier --write 'packages/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}' && eslint --fix 'packages/**/*.{ts,mts,cts,js,mjs,cjs}' ",
+    "prepare": "husky install",
+    "prettier:check": "prettier --check 'packages/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'",
+    "prettier:fix": "prettier --write 'packages/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'",
+    "tidy": "yarn install && run-s prettier:fix build:clean",
+    "watch": "yarn workspaces foreach -P run watch"
+  },
+  "lint-staged": {
+    "*.{ts,mts,cts,js,mjs,cjs}": "node_modules/.bin/eslint --cache --fix",
+    "'src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'": "node_modules/.bin/prettier --write"
+  },
+  "devDependencies": {
+    "@gregros/eslint-config": "^0.7.1",
+    "@types/node": "^22.15.29",
+    "@types/ws": "^8",
+    "@typescript-eslint/eslint-plugin": "^8.33.1",
+    "@typescript-eslint/parser": "^8.33.1",
+    "eslint": "^8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.5.3",
+    "prettier-plugin-jsdoc": "^1.3.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-packagejson": "^2.5.15",
+    "shx": "^0.4.0",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "yarn@4.9.2",
+  "sourcesRoot": "src",
+  "dependencies": {
+    "pm2": "^6.0.8",
+    "ws": "^8.18.3"
+  },
+  "resolutions": {
+    "@k8ts/workspace": "portal:/C:/codegr/k8ts",
+    "@k8ts/instruments": "portal:/C:/codegr/k8ts/packages/instruments",
+    "k8ts": "portal:/C:/codegr/k8ts/packages/k8ts",
+    "@k8ts/metadata": "portal:/C:/codegr/k8ts/packages/metadata"
+  }
+}

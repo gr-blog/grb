@@ -1,0 +1,46 @@
+@import "./media-queries";
+@mixin text-readable() {
+    font-size: var(--font-size-readable);
+    line-height: var(--text-line-height-readable);
+}
+%text-readable {
+    font-size: var(--font-size-readable);
+    line-height: var(--text-line-height-readable);
+}
+:root {
+    --font-size-name-heading: 2rem;
+    @include is-large {
+        --font-size-name-heading: 4rem;
+    }
+    --font-size-math: 1.3rem;
+
+    --font-size-nav-heading: 1.8rem;
+    --font-size-readable: 1.2rem;
+    --font-size-stats: 0.7rem;
+    --font-size-caption: 1.2rem;
+    --font-size-series-title: 1rem;
+    --font-size-series-title-big: 1.5rem;
+    --font-size-series-tagline: 0.6rem;
+    --font-size-post-title: 2em;
+    @include is-large {
+        --font-size-post-title: 3em;
+    }
+
+    --font-size-post-title-small: 1.2rem;
+    --font-size-series-link-small: 0.8rem;
+    --font-size-series-grid: 1.5rem;
+    --font-size-made-with: 0.8rem;
+    --font-size-footer-link: 0.85rem;
+    --font-size-footer-vanity: var(--font-size-name-heading);
+    --font-size-post-title-primary: 2em;
+    --text-line-height-readable: 1.5;
+
+    --font-size-crumbs: 1.4em;
+}
+
+@mixin lowercase-style() {
+}
+
+@mixin header-style() {
+    font-weight: 500;
+}

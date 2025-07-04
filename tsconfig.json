@@ -1,0 +1,21 @@
+{
+  "references": [
+    {
+      "path": "./packages/api/tsconfig.json"
+    },
+    {
+      "path": "./packages/k8s/tsconfig.json"
+    },
+    {
+      "path": "./packages/frontend/tsconfig.json"
+    },
+    {
+      "path": "./packages/bot/tsconfig.json"
+    }
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "sourceMap": true
+  },
+  "files": []
+}

@@ -1,0 +1,31 @@
+{
+  "name": "k8s",
+  "version": "0.1.0",
+  "private": true,
+  "description": "K8s manifest builder for GRB",
+  "keywords": [],
+  "author": "GregRos",
+  "scripts": {
+    "clean": "shx rm -rf dist .tsbuildinfo || true",
+    "manifest": "tsx src/main.ts",
+    "manifest:watch": "tsx src/main.ts --watch"
+  },
+  "lint-staged": {
+    "*.{ts,mts,cts,js,mjs,cjs}": "node_modules/.bin/eslint --cache --fix",
+    "'src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'": "node_modules/.bin/prettier --write"
+  },
+  "dependencies": {
+    "@k8ts/instruments": "^0.4.15",
+    "@k8ts/metadata": "^0.4.10",
+    "k8ts": "^0.6.1"
+  },
+  "devDependencies": {
+    "@gregros/eslint-config": "^0.7.1",
+    "@types/node": "^22.15.29",
+    "npm-run-all": "^4.1.5",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "yarn@4.9.2",
+  "sourcesRoot": "src"
+}

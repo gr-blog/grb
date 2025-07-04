@@ -1,0 +1,15 @@
+@import "../../_styles/index.scss";
+.post-item-grid {
+    @include spacing-none;
+    display: grid;
+    grid-gap: 1em;
+    list-style: none;
+    @include is-small-or-mobile {
+        grid-template-columns: 1fr !important;
+    }
+
+    .post-item {
+        @include effect-faded-hover;
+        margin-top: 1rem;
+    }
+}

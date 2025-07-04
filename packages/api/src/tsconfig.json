@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "../../../.tsbuildinfo/api.tsbuildinfo",
+    "outDir": "../dist",
+    "noEmit": false
+  },
+  "include": ["**/*.ts", "**/*.json"],
+  "exclude": ["**/dist", "**/node_modules", "**/*.test.ts", "*.refactor.ts"]
+}

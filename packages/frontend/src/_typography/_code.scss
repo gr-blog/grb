@@ -1,0 +1,35 @@
+@use "sass:color";
+@import "../_styles/index.scss";
+
+$_bg-block: #0d0d20;
+$_bg-inline: #0d0d20;
+
+@mixin code-font() {
+    font-family: var(--fira-code);
+    font-weight: 450;
+    font-variant-ligatures: none;
+    line-height: 1.35;
+}
+
+@mixin inline() {
+    color: rgb(209, 209, 254);
+    @include code-font;
+}
+
+@mixin block() {
+    background: $_bg-block !important;
+    tab-size: 4;
+    @include subtle-scroll;
+    @include padding-tb(2vh);
+
+    @include padding-lr(1.3vw);
+
+    code:not([class*="language-"]) {
+        color: #c5c5c5;
+    }
+    code {
+        .line {
+            @include code-font;
+        }
+    }
+}

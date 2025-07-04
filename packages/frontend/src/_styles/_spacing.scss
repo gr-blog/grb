@@ -1,0 +1,65 @@
+%no-margin-padding {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin margin-none() {
+    margin: 0;
+}
+
+@mixin padding-none() {
+    padding: 0;
+}
+
+@mixin spacing-none() {
+    @include margin-none();
+    @include padding-none();
+}
+
+@mixin padding-lr($padding) {
+    padding-left: $padding;
+    padding-right: $padding;
+}
+
+@mixin margin-lr($margin) {
+    margin-left: $margin;
+    margin-right: $margin;
+}
+
+@mixin margin-tb($margin) {
+    margin-top: $margin;
+    margin-bottom: $margin;
+}
+
+@mixin padding-tb($padding) {
+    padding-top: $padding;
+    padding-bottom: $padding;
+}
+
+@mixin vert-center() {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@mixin left-center() {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@mixin right-center() {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@mixin center-center() {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

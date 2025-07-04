@@ -1,0 +1,13 @@
+@import "../../_styles/index.scss";
+html {
+    @extend %no-margin-padding;
+    height: 100%;
+}
+body {
+    @extend %no-margin-padding;
+    height: 100%;
+    background: var(--bg-page-body);
+}
+a {
+    text-decoration: none;
+}

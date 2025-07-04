@@ -1,0 +1,18 @@
+@mixin itemized-list() {
+    @include spacing-none();
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    li {
+        &:not(:last-child) {
+            @include spacing-none();
+            &::after {
+                content: "•";
+                @include margin-lr(0.5rem);
+            }
+        }
+    }
+    color: var(--fg-stats-line);
+}

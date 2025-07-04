@@ -1,0 +1,34 @@
+@use "sass:color";
+
+@import "../_styles/index.scss";
+$_base-code-block-border: rgb(54, 53, 64);
+
+@mixin left-right-breakout($width) {
+    margin-left: -#{$width};
+    padding-left: #{$width};
+    margin-right: -#{$width * 1.3};
+    padding-right: #{$width * 1.3};
+}
+
+@mixin code-block() {
+    $width: 1.5em;
+    @include margin-tb(1em);
+
+    $border-bright: 1px solid $_base-code-block-border;
+    $border-wide: 4px solid $_base-code-block-border;
+    border-radius: 0.5em;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+@mixin code-inline-spacing() {
+    $padding-around: 4px;
+
+    @include padding-lr($padding-around);
+    @include padding-tb(2px);
+}
+
+@mixin code-inline() {
+    @include code-inline-spacing;
+    font-size: 0.9em;
+}

@@ -1,0 +1,75 @@
+@use "sass:color" as color;
+@use "code-embedding" as code_e;
+@import "./boxicon";
+@import "../_styles/index.scss";
+$link-color: #feb031;
+$visited-color: rgb(233, 197, 139);
+$hover-visited-color: rgb(61, 99, 249);
+$external-link-color: rgb(209, 209, 209);
+@mixin link-style() {
+    @content;
+    code,
+    strong,
+    em {
+        @content;
+    }
+}
+
+@mixin _hover() {
+    @include link-style() {
+        color: $hover-color;
+    }
+}
+
+@mixin _visited() {
+    @include link-style() {
+        color: $visited-color;
+    }
+}
+
+@mixin space-around() {
+    break-before: always;
+    word-break: keep-all;
+}
+
+@mixin _common() {
+    @include space-around;
+    &:has(code) {
+        @include code_e.code-inline-spacing;
+    }
+    @include link-style() {
+        color: $link-color;
+        text-decoration: underline;
+        text-decoration-thickness: 0.07em;
+        @include spacing-none;
+        &:hover {
+            @include _hover;
+        }
+        &:visited {
+            @include _visited;
+        }
+        &:hover:visited {
+            @include _hover;
+        }
+    }
+}
+
+@mixin internal() {
+    @include _common;
+}
+@mixin external() {
+    @include _common;
+
+    &::after {
+        @include boxicon("\eb3c");
+        font-size: 0.85em;
+        color: $external-link-color;
+        text-decoration: none;
+        display: inline-block;
+    }
+    &:hover {
+        &::after {
+            color: $hover-color;
+        }
+    }
+}

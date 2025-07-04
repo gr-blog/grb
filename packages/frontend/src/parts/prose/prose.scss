@@ -1,0 +1,108 @@
+@use "../../_typography/prose" as prose;
+@use "../../_typography/code" as code;
+@use "../../_typography/links" as links;
+@use "../../_typography/math" as math;
+@use "../../_styles/effects" as effects;
+@mixin prose-block() {
+    strong {
+        @include prose.strong;
+        code {
+            @include prose.strong;
+        }
+    }
+    em {
+        @include prose.em;
+        code {
+            @include prose.em;
+        }
+    }
+    code {
+        @include prose.code-inline;
+        @include code.inline;
+    }
+    a {
+        @include links.internal;
+        &[href^="http"], &[href^="//"]
+        {
+            @include links.external;
+        }
+    }
+}
+.prose {
+    math[display="block"] {
+        @include math.math-block;
+    }
+    math:not([display="block"]) {
+        @include math.math-inline;
+    }
+
+    font-size: var(--font-size-readable);
+    p {
+        @include prose.para;
+    }
+    @each $depth in 1 2 3 4 5 6 {
+        h#{$depth} {
+            @include prose.heading($depth);
+        }
+    }
+
+    h2 {
+        border-bottom: 3px solid white;
+    }
+
+    .canva-image {
+        width: 100%;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        @include effects.subtle-scroll;
+    }
+    img {
+        @include prose.img;
+    }
+    ul {
+        @include prose.ul;
+    }
+    p {
+        @include prose.para;
+        @include prose-block;
+    }
+    blockquote {
+        @include prose-block;
+    }
+    li {
+        @include prose.li;
+        @include prose-block;
+    }
+    p + p {
+        @include prose.para-para;
+    }
+
+    li + li {
+        @include prose.li-li;
+    }
+
+    pre {
+        @include prose.code-block;
+        @include code.block;
+    }
+}
+.rainbow-black {
+    .token-property {
+        color: #d2fab7 !important;
+    }
+    .token-local {
+        color: #ffffff !important;
+        font-weight: 400 !important;
+    }
+    .token-namespace {
+        color: #00d977 !important;
+        font-weight: 700;
+    }
+    .token-class {
+        color: #01ff78 !important;
+        font-weight: 700;
+    }
+    .token-function {
+        color: #eb4646 !important;
+    }
+}

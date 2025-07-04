@@ -1,0 +1,54 @@
+@import "../../_styles/index";
+
+.toc {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 18px;
+
+    padding-top: 22px;
+    padding-bottom: 22px;
+    padding-right: 22px;
+    background: rgba(0, 0, 0, 0.277);
+    border-radius: 0.5em;
+    @include lowercase-style();
+
+    .highlighted {
+        color: white;
+    }
+
+    &__heading {
+        @include spacing-none;
+        font-variant: small-caps;
+        text-align: left;
+        width: 100%;
+        color: var(--fg-toc-link);
+    }
+
+    ol {
+        min-width: 175px;
+        font-size: 19px;
+        ol {
+            font-size: 0.9em;
+        }
+    }
+    ol {
+        list-style-type: none;
+        padding-left: 0;
+        li + li {
+            margin-top: 1em;
+        }
+        li > ol {
+            padding-left: 1em;
+            margin-top: 0.25em;
+        }
+        a {
+            color: var(--fg-toc-link);
+            display: block;
+            &:hover {
+                color: var(--fg-link);
+            }
+        }
+    }
+}

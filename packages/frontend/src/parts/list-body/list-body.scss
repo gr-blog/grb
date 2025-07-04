@@ -1,0 +1,38 @@
+@import "../../_styles/index.scss";
+.list-page {
+    @include is-mobile {
+        .page-header__main {
+            padding-left: calc(2 * var(--padding-column-2));
+        }
+    }
+    &__content {
+        height: 100%;
+        @include main-column-layout();
+    }
+
+    &__latest {
+        @include grid-area($area: main, $justify-self: stretch);
+        max-width: calc(100vw - 2 * var(--padding-column-2));
+    }
+
+    &__aside {
+        @include grid-area($area: right-nav, $justify-self: stretch);
+        padding-left: var(--sidebar-3-padding);
+        grid-area: right-nav;
+        h2 {
+            @include header-style;
+            @include spacing-none;
+            padding-left: 5px;
+            @include effect-faded-heading;
+        }
+
+        nav:first-of-type {
+            min-height: 300px;
+        }
+    }
+    .post-item-grid {
+        .post-item {
+            margin-top: 1rem;
+        }
+    }
+}

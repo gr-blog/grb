@@ -1,0 +1,10 @@
+@mixin boxicon($code) {
+    content: $code;
+    font-family: boxicons !important;
+    font-weight: 400;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    text-transform: none;
+}

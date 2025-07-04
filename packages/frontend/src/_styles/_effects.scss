@@ -1,0 +1,112 @@
+@mixin title-effect($primaryColor, $seriesColor) {
+    color: $seriesColor;
+    @include lowercase-style();
+    @include spacing-none;
+}
+
+@mixin preview-title-effect($primaryColor, $seriesColor) {
+    color: var(--fg-readable);
+    color: $seriesColor;
+}
+
+@mixin _gradient() {
+    display: inline-block;
+    @include spacing-none;
+    background: $primaryColor;
+    background: linear-gradient(to right, $primaryColor 11%, $seriesColor 45%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin series-effect($seriesColor) {
+    color: $seriesColor;
+    font-weight: 700;
+    font-variant: small-caps;
+    letter-spacing: 0.03em;
+}
+
+@mixin effect-faded-hover($color: var(--series-color)) {
+    filter: brightness(0.5) saturate(0.7);
+    border-left: 3px solid transparent;
+    &:hover {
+        filter: none;
+        transition: 0.2s;
+        border-left: 3px solid $color;
+    }
+}
+
+@mixin effect-hue-spin() {
+    &:hover {
+        transition: 1s;
+        filter: hue-rotate(60deg);
+    }
+}
+
+@mixin effect-shadowed-overlay() {
+    filter: blur(0.3px) brightness(0.8) drop-shadow(0 0 10px rgba(0, 0, 0, 3));
+}
+
+@mixin item-container() {
+    box-sizing: border-box;
+}
+
+@mixin effect-clickable-outline() {
+    outline: 2px solid var(--fg-link);
+}
+$hover-color: rgb(154, 172, 246);
+
+@mixin effect-link-hover() {
+    &:hover {
+        color: $hover-color;
+    }
+}
+
+@mixin effect-faded-heading() {
+    color: #71819c;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+}
+
+@mixin _webkit-scrollbars() {
+    /* Target the scrollbar */
+    &::-webkit-scrollbar {
+        width: 8px; /* Thin width */
+        height: 8px; /* Thin height for horizontal scrollbars */
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 10px;
+    }
+    &:hover {
+        &::-webkit-scrollbar-track {
+            background: var(--bg-page-header);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--series-color);
+        }
+    }
+}
+
+@mixin _ff-scrollbars() {
+    scrollbar-width: none;
+    &:hover {
+        scrollbar-width: thin;
+        scrollbar-color: var(--series-color) var(--bg-page-header);
+    }
+}
+
+@mixin subtle-scroll() {
+    @supports selector(::-webkit-scrollbar) {
+        @include _webkit-scrollbars;
+    }
+    @supports not selector(::-webkit-scrollbar) {
+        @include _ff-scrollbars;
+    }
+    overflow-x: auto;
+}

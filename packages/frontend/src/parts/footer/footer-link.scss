@@ -1,0 +1,14 @@
+$hover-color: rgb(154, 172, 246);
+$hover-visited-color: rgb(61, 99, 249);
+$external-link-color: rgb(209, 209, 209);
+.footer-link {
+    color: var(--fg-readable);
+    text-decoration: underline;
+    text-decoration-thickness: 0.07em;
+    line-height: 30px;
+    text-underline-offset: 4px;
+    font-size: var(--font-size-footer-link);
+    &:hover {
+        color: $hover-color;
+    }
+}

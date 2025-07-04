@@ -1,0 +1,17 @@
+@import "../../_styles/index.scss";
+.series-page {
+    .title-crumbs__heading {
+        @include series-effect(var(--series-color));
+    }
+
+    .post-preview {
+        .series-link {
+            font-size: 0;
+        }
+    }
+    [data-selected] {
+        pointer-events: none;
+        border-left: 3px solid white;
+        border-radius: 0;
+    }
+}

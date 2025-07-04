@@ -1,0 +1,166 @@
+# OR only to exclude workspace cache
+vaukt/.obsidian/workspace
+vault/.obsidian/plugins
+# Exclude consultant specific files "personal"
+05*-*Personal/
+dist/
+# Exclude Day Planner directory placed in vault root
+Day*Planners/*
+.parcel-cache/
+# This file is used to keep track of last auto backup/pull
+.obsidian-git-data
+.next/
+# Exclude Untitled Notes
+Untitled*
+# Exclude "bad" names
+null*
+*.tsbuildinfo
+/*.d.ts
+# Add below lines to exclude OS settings and caches
+.trash/
+.DS_Store
+node_modules/
+*.map
+*.log
+.maybe-resources/
+vault/Resources
+
+# defaults for JetBrains
+vault/publish.*
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle
+build/
+
+# Local configuration
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+
+vault/.obsidian/workspace.json
+# General
+*.log
+*.aux
+*.dvi
+*.lof
+*.lot
+*.bit
+*.idx
+*.glo
+*.bbl
+*.bcf
+*.ilg
+*.toc
+*.ind
+*.out
+*.blg
+*.brf
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.run.xml
+*-blx.bib
+*.alg
+*.acr
+*.acn
+*.glg
+*.gls
+*.ist
+*.sbl
+*.slg
+*.snm
+*.nav
+*.dpth
+*.md5
+*.auxlock
+*.tikz
+*.tikzdict
+*.tfm
+*.mp
+*.mpx
+*.lua
+*.luacode
+*.pdfsync
+*.thm
+*.vrb
+*.xdy
+*.upa
+*.upb
+*.pyg
+*.end
+*.mw
+*.figlist
+*.dep
+*.dpth
+
+# LuaLaTeX specific
+*.lualatex
+*.lualatexmk
+
+# Compiled main document(s)
+*.pdf
+
+# Editor backups and temporary files
+*~
+*.bak
+*.swp
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Directory to hold auto-generated figures or other assets (optional)
+/generated_figures/
+**/workspace.json
+
+.photoshop
+.unused
+.yarn/*

@@ -1,0 +1,46 @@
+@use "sass:math";
+@mixin column-2() {
+    width: var(--width-column-2);
+    min-width: 600px;
+    max-width: 1000px;
+    margin-right: 1%;
+    padding-left: var(--padding-column-2);
+}
+
+:root {
+    $logo-x: 200px;
+    $padding-logo-x: 15%;
+    --width-column-1: 17%;
+    --width-column-2: 45%;
+    --after-column-2: 1%;
+    --width-column-3: 20%;
+    --padding-column-2: min(2.5vw, 1rem);
+    --logo-x: 225px;
+    --logo-x-topbar: 2.5rem;
+    --crumbs-logo-x: 3rem;
+    --padding-logo-x: #{$padding-logo-x};
+    --extra-logo-x: 1rem;
+    $shifter: #{1 + $padding-logo-x / 100%};
+    --shifter: #{$shifter};
+    --shifted-logo-x: calc(var(--logo-x) * var(--shifter));
+    --sidebar-3-padding: 0.5rem;
+    --spikey-logo-x: calc(var(--shifted-logo-x) + #{$shifter}px);
+}
+$height-header-sticky: 3.75rem;
+:root {
+    --height-footer: 7.5rem;
+    --height-page: calc(100% - var(--height-footer));
+    --height-header: 7rem;
+    --height-header-sticky: 2.75rem;
+}
+
+:root {
+    --post-toc-height: 10rem;
+    --post-toc-width: 7rem;
+}
+
+.page {
+    min-height: var(--height-page);
+    box-sizing: border-box;
+    padding-bottom: 30px;
+}

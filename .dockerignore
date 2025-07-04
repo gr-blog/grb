@@ -1,0 +1,14 @@
+.eslint*
+.prettier*
+.npm*
+*.code*
+*.md
+*.log
+.vscode
+sample-data
+.husky
+*.psd
+.dev.env
+node_modules
+.next
+.DS_Store

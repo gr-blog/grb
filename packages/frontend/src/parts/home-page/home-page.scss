@@ -1,0 +1,70 @@
+@import "../../_styles/index.scss";
+
+.header-home {
+    padding-bottom: 0px;
+    --crumbs-logo-x: 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    grid-template-areas: "primary nav";
+    width: 100%;
+    &__aside {
+        color: var(--fg-home-tagline);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 0.5rem;
+        font-size: var(--font-size-tagline);
+        height: 60%;
+    }
+
+    &__heading {
+        font-size: var(--font-size-name-heading);
+        margin: 0;
+        color: var(--fg-home-tagline);
+        @include padding-tb(0.15rem);
+        padding-right: 0.5rem;
+        margin-right: 0.5rem;
+        &:hover {
+            color: var(--fg-link);
+        }
+    }
+    &__primary {
+        justify-self: stretch;
+
+        grid-area: primary;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        @include margin-tb(1rem);
+        @include is-mobile {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            aside {
+                padding-left: var(--crumbs-logo-x);
+                margin-left: 0.4rem;
+                border-left: none;
+                margin-top: -1rem;
+            }
+            @include margin-tb(0.5rem);
+        }
+    }
+    &__menu {
+        grid-area: nav;
+        height: 100%;
+        @include right-center;
+    }
+}
+
+.sticky-top-nav {
+    .header-home {
+        &__heading {
+            font-size: 1.5rem;
+            border: none;
+        }
+        aside {
+            display: none;
+        }
+    }
+}

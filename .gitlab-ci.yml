@@ -1,0 +1,98 @@
+# .gitlab-ci.yml
+stages:
+  - push_image
+  - push_manifest
+
+####################
+# Shared definitions
+####################
+.vars:
+  common: &vars_common
+    variables:
+      SHORT_SHA: "$CI_COMMIT_SHORT_SHA"
+
+  frontend: &vars_frontend
+    variables:
+      SERVICE: "frontend"
+  api: &vars_api
+    variables:
+      SERVICE: "api"
+  bot: &vars_bot
+    variables:
+      SERVICE: "bot"
+.paths:
+  shared: &paths_shared
+    - packages/k8s/src/shared/**/*
+    - packages/k8s/src/main.ts
+    - packages/tsconfig.base.json
+    - packages/k8s/*.sh
+    - .gitlab-ci.yml
+    - build-target.sh
+    - manifest.sh
+    - Dockerfile
+  api: &paths_api
+    - packages/k8s/src/api/**/*
+    - packages/api/**/*
+  frontend: &paths_frontend
+    - packages/k8s/src/frontend/**/*
+    - packages/frontend/**/*
+  bot: &paths_bot
+    - packages/k8s/src/bot/**/*
+    - packages/bot/**/*
+
+.push_image: &push_image
+  image: registry.host/ci/buildkit:latest
+  stage: push_image
+  script:
+    - sh build-target.sh
+
+.push_manifests: &push_manifests
+  image: "registry.host/ci/oras:latest"
+  stage: push_manifest
+  script:
+    - sh manifest.sh
+
+####################
+# Job definitions
+####################
+push_api_image:
+  <<: [*push_image, *vars_api]
+  rules:
+    - changes: *paths_shared
+    - changes: *paths_api
+
+push_frontend_image:
+  <<: [*push_image, *vars_frontend]
+  rules:
+    - changes: *paths_shared
+    - changes: *paths_frontend
+
+push_bot_image:
+  <<: [*push_image, *vars_bot]
+  rules:
+    - changes: *paths_shared
+    - changes: *paths_bot
+
+push_api_manifest:
+  <<: [*push_manifests, *vars_api]
+  needs:
+    - push_api_image
+  rules:
+    - changes: *paths_shared
+    - changes: *paths_api
+
+push_frontend_manifest:
+  <<: [*push_manifests, *vars_frontend]
+  needs:
+    - push_frontend_image
+  rules:
+    - changes: *paths_shared
+    - changes: *paths_frontend
+
+push_bot_manifest:
+  <<: [*push_manifests, *vars_bot]
+  needs:
+    - push_bot_image
+  rules:
+    - changes: *paths_shared
+    - changes: *paths_bot

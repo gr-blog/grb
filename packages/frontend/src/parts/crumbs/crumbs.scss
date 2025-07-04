@@ -1,0 +1,47 @@
+@import "../../_styles/index.scss";
+.crumbs {
+    --crumb-margin: 0.5rem;
+    font-size: var(--font-size-crumbs);
+    a {
+        border-radius: 5px;
+        &:hover {
+            @include effect-link-hover;
+        }
+    }
+    .home-link {
+        color: var(--fg-crumb-home-link);
+    }
+    .series-link {
+        color: var(--series-color);
+    }
+    ol {
+        @extend %no-margin-padding;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    &__crumb {
+        font-weight: 500;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        i::before {
+            @include is-mobile {
+                font-size: 1.5rem !important;
+            }
+            @include is-small {
+                font-size: 1.75rem !important;
+            }
+            @include is-large {
+                font-size: 2.25rem !important;
+            }
+            opacity: 0.75;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

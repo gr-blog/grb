@@ -1,0 +1,69 @@
+@use "sass:math";
+@use "./code" as code;
+@forward "./code-embedding";
+@import "../_styles/index.scss";
+
+@mixin strong() {
+    font-weight: 700;
+}
+
+@mixin em() {
+    font-style: italic;
+}
+
+@mixin li-li() {
+    margin-top: 0.35em;
+}
+
+@mixin ul() {
+    padding-left: 2em;
+}
+
+@mixin li() {
+    @include para;
+}
+
+@mixin para-para() {
+    margin-top: 1.2rem;
+}
+
+@mixin img() {
+    margin: auto;
+    display: block;
+}
+@mixin para() {
+    @include spacing-none;
+    line-height: 1.4;
+    font-size: 1.3rem;
+}
+@mixin heading-anchor() {
+    i {
+        margin-left: -25px;
+        padding-right: 8px;
+        visibility: hidden;
+    }
+    &:hover i {
+        visibility: visible;
+    }
+}
+@function _heading-margin($depth) {
+    @return 1em * math.pow(1.25, 6 - $depth);
+}
+@function _heading-font-size($depth) {
+    @return 2.4em - ($depth - 1) * 0.3em;
+}
+[data-heading-id] {
+    margin-top: 3em;
+}
+@mixin heading($depth) {
+    @include spacing-none;
+    @include lowercase-style();
+
+    margin-bottom: 0;
+    font-size: _heading-font-size($depth);
+    & > a {
+        color: var(--fg-text-heading);
+    }
+
+    @include heading-anchor;
+}

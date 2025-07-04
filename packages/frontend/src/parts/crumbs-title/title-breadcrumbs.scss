@@ -1,0 +1,40 @@
+@import "../../_styles/index.scss";
+
+.title-crumbs {
+    @include is-large {
+        padding-top: 1rem;
+    }
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    grid-template-areas: "crumbs menu" "title menu";
+    @include is-small-or-mobile {
+        width: 100%;
+    }
+    &__heading {
+        grid-area: title;
+        font-size: var(--font-size-post-title);
+        margin: 0;
+        padding-bottom: 0.3rem;
+        justify-self: stretch;
+    }
+
+    &__crumbs {
+        grid-area: crumbs;
+    }
+    &__menu {
+        grid-area: menu;
+    }
+}
+
+.sticky-top-nav {
+    .title-crumbs {
+        padding-top: 0;
+        &__heading {
+            font-size: 0.5rem;
+            margin-top: 0;
+        }
+    }
+    .home-link__logo {
+        height: var(--logo-x-topbar);
+    }
+}

@@ -1,0 +1,98 @@
+@import "../../_styles/index.scss";
+@import "../../_typography/_prose.scss";
+.newsletter {
+    --fg-newsletter-heading: var(--series-color);
+    @mixin form-controls() {
+        height: 80%;
+        display: block;
+        box-sizing: border-box;
+        @include spacing-none;
+    }
+    height: 7rem;
+    margin-top: 3rem;
+    @include main-column-layout;
+
+    &__contents {
+        display: flex;
+        flex-direction: column;
+        place-items: center;
+        grid-area: main;
+    }
+    &--joined {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.5rem;
+        &__text {
+            color: var(--fg-newsletter-joined);
+            font-size: var(--font-size-readable);
+        }
+    }
+
+    &__heading {
+        @include effect-shadowed-overlay;
+
+        place-self: stretch;
+        @include spacing-none;
+        border-bottom: 2px solid var(--fg-newsletter-heading);
+        font-size: _heading-font-size(2);
+        color: var(--fg-newsletter-heading);
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    &__text {
+        justify-self: center;
+        @include spacing-none;
+        color: var(--fg-newsletter-text);
+        font-size: var(--font-size-readable);
+        margin-bottom: 0;
+    }
+    &__form {
+        height: 3rem;
+        display: grid;
+        width: 55%;
+        grid-template-areas: "input submit";
+        grid-template-columns: 7fr auto;
+        column-gap: 0.5rem;
+        margin-top: 0;
+        padding-top: 0;
+        margin-top: 0.5rem;
+    }
+
+    &__email {
+        @include form-controls;
+        grid-area: input;
+        padding: 0.3rem;
+
+        @include padding-lr(0.8rem);
+        color: var(--fg-text);
+        background: var(--bg-page-header);
+        border: 0;
+        border-radius: 0.3rem;
+        font-size: var(--font-size-readable);
+        caret-color: var(--fg-newsletter-heading);
+        &:focus {
+            outline: 2px solid var(--fg-newsletter-heading);
+        }
+    }
+
+    &__submit {
+        @include form-controls;
+        grid-area: submit;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.1rem;
+        justify-content: center;
+        background: var(--fg-newsletter-heading);
+        border-radius: 0.4rem;
+        min-width: 1rem;
+        color: var(--fg-text);
+        font-size: var(--font-size-readable);
+        padding: 0.3rem;
+        &:active {
+            filter: brightness(0.74);
+        }
+    }
+}

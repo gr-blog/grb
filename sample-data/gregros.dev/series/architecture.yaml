@@ -1,0 +1,10 @@
+title: Architecture
+description: System architecture and design
+image:
+  src: X-BUILDING-THINGS-IMAGE
+  alt: BuildingThings image
+tagline: How systems are made
+color: "#ffff00"
+hidden: false
+posts:
+  - scalability-is-not-performance

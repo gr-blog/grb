@@ -1,0 +1,12 @@
+{
+  "references": [
+    {
+      "path": "./src/tsconfig.json"
+    }
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "sourceMap": true
+  },
+  "files": []
+}

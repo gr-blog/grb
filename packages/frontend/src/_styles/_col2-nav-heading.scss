@@ -1,0 +1,71 @@
+:root {
+    --width-column-main-max: 50rem;
+    --width-column-main-min: 25rem;
+    --width-column-nav-min: 17rem;
+    --width-column-nav-max: 25rem;
+    --width-column-nav: minmax(var(--width-column-nav-min), 1fr);
+    --width-column-main: minmax(var(--width-column-main-min), var(--width-column-main-max));
+}
+
+@mixin main-column-layout() {
+    display: grid;
+    grid-template-columns:
+        1fr var(--shifted-logo-x) var(--width-column-main) var(--width-column-nav)
+        1fr;
+    grid-template-areas: "left-margin logo main right-nav right-margin";
+    @include is-small {
+        grid-template-areas: "left-margin main right-nav";
+        grid-template-columns: var(--padding-column-2) var(--width-column-main) var(
+                --width-column-nav
+            );
+    }
+    @include is-mobile {
+        grid-template-areas: "left-margin main right-margin";
+        grid-template-columns: var(--padding-column-2) 1fr var(--padding-column-2);
+        overflow: hidden;
+        .list-page__aside {
+            display: none;
+        }
+        .post-page__aside {
+            display: none;
+        }
+    }
+}
+@mixin header-column-layout() {
+    display: grid;
+
+    grid-template-columns:
+        1fr var(--shifted-logo-x) var(--width-column-main) var(--width-column-nav)
+        1fr;
+    grid-template-areas: "left-margin logo main nav right-margin";
+    &::after {
+        content: " ";
+        grid-area: nav;
+        background: var(--bg-page-header);
+    }
+    @include is-small {
+        grid-template-areas: "main";
+        --width-column-nav: minmax(var(--width-column-nav-min), 1fr);
+        grid-template-columns: 1fr;
+    }
+    @include is-mobile {
+        grid-template-areas: "main nav";
+        grid-template-columns: 1fr min-content;
+    }
+}
+
+@mixin grid-area($area, $max-width: "", $justify-self: "", $align-self: "", $min-width: "") {
+    @if $max-width != "" {
+        max-width: $max-width;
+    }
+    @if $justify-self != "" {
+        justify-self: $justify-self;
+    }
+    @if $align-self != "" {
+        align-self: $align-self;
+    }
+    @if $min-width != "" {
+        min-width: $min-width;
+    }
+    grid-area: $area;
+}

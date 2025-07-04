@@ -1,0 +1,37 @@
+@import "../../_styles/index.scss";
+
+$font-size: 0.9rem;
+$font-size-title: 1.1em;
+$font-size-series: 1.2em;
+$font-size-stats: 1em;
+.discord-invite {
+    margin-top: 1rem;
+
+    &__inner {
+        display: grid;
+        gap: 0.5rem;
+        line-height: 1.3em;
+        grid-template-areas: "logo text";
+        grid-template-columns: min-content 1fr;
+        align-content: center;
+        justify-items: stretch;
+        height: 2.5rem;
+        padding-left: 0.4rem;
+        font-size: $font-size;
+        @include effect-faded-hover(var(--fg-discord));
+    }
+    &__logo {
+        grid-area: logo;
+        place-self: center;
+    }
+
+    &__text {
+        align-self: center;
+        grid-area: text;
+        font-size: var(--font-size-post-title-small);
+        color: #7289da;
+        @include title-effect(var(--fg-discord), var(--fg-discord));
+        font-size: $font-size-title;
+        display: block;
+    }
+}

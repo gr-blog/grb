@@ -1,0 +1,15 @@
+diff --git a/package.json b/package.json
+index 280de5b9e4e6db6a3e1b41b567cc07973b2cf15c..3130fa60f349fffe769a4fd0c2a4f369bfef5566 100644
+--- a/package.json
++++ b/package.json
+@@ -10,7 +10,9 @@
+     "./csr": "./dist/csr/index.js",
+     "./serialize": "./dist/csr/serialize.js",
+     "./rsc": "./dist/rsc/index.js",
+-    "./utils": "./dist/utils/index.js"
++    "./utils": "./dist/utils/index.js",
++    "./run": "./dist/lib/run.js",
++    "./compile": "./dist/lib/compile.js"
+   },
+   "typesVersions": {
+     "*": {

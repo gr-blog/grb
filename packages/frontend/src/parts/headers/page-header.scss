@@ -1,0 +1,66 @@
+@import "../../_styles/index";
+.page-header {
+    display: grid;
+    @include header-column-layout;
+    min-height: var(--header-height);
+    grid-template-rows: min-content;
+    border: none;
+    overflow-y: visible;
+    margin-bottom: 20px;
+    @include is-large-or-small {
+        .menu-button {
+            display: none;
+        }
+    }
+    &__main {
+        @include is-small-or-mobile {
+            padding-left: var(--padding-column-2);
+            padding-right: var(--padding-column-2);
+        }
+        background: var(--bg-page-header);
+        grid-area: main;
+        position: relative;
+        z-index: 30;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        height: 100%;
+    }
+    position: relative;
+    &__logo {
+        position: relative;
+        justify-self: end;
+        grid-area: logo;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        @include is-large {
+            &::before {
+                content: " ";
+                width: var(--shifted-logo-x);
+            }
+        }
+        @include is-small-or-mobile {
+            display: none;
+        }
+
+        > a {
+            position: absolute;
+            background: var(--bg-page-header);
+            width: calc(var(--logo-x) + 15px);
+            padding-left: 16.5px;
+            height: 100%;
+            overflow: visible;
+            @include right-center;
+        }
+
+        .logo {
+            margin-top: 27%;
+            height: var(--logo-x);
+            width: auto;
+            padding-right: var(--padding-logo-x);
+            @include effect-hue-spin;
+        }
+    }
+}

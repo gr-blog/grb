@@ -1,0 +1,21 @@
+@import "../../_styles/index.scss";
+.home-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    &__text {
+        position: relative;
+        z-index: 10;
+    }
+    &__logo {
+        @include is-large {
+            display: none;
+        }
+        left: 0;
+        margin-top: 5%;
+        height: var(--crumbs-logo-x);
+        width: auto;
+    }
+}

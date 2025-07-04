@@ -1,0 +1,28 @@
+@use "./prose" as prose;
+
+@mixin _math-common() {
+    mo {
+        min-width: 20px;
+        display: inline-block;
+    }
+    &:has(annotation[data-style="hidden"]) {
+        height: 0px;
+        overflow: hidden;
+        padding: 0 !important;
+        @include prose.para-para;
+    }
+}
+@mixin math-block() {
+    display: block;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    overflow: auto;
+    @include _math-common;
+}
+
+@mixin math-inline() {
+    font-size: var(--font-size-math);
+    padding-left: 0.05rem;
+    padding-right: 0.05rem;
+    @include _math-common;
+}

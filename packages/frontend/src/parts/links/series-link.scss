@@ -1,0 +1,4 @@
+@import "../../_styles/index";
+.series-link {
+    @include series-effect(var(--series-color));
+}

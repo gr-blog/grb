@@ -1,0 +1,82 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "GRB Api",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "autoAttachChildProcesses": true,
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder:api}/dist/main.js",
+      "resolveSourceMapLocations": ["${workspaceFolder}/**"],
+      "envFile": "${workspaceFolder:api}/.dev.env",
+      "runtimeArgs": ["--enable-source-maps", "--stack-trace-limit=1000"]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "GRB Bot",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "autoAttachChildProcesses": true,
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder:bot}/dist/main.js",
+      "resolveSourceMapLocations": ["${workspaceFolder}/**"],
+      "envFile": "${workspaceFolder:bot}/.dev.env",
+      "runtimeArgs": ["--enable-source-maps", "--stack-trace-limit=1000"],
+      "restart": true
+    },
+    {
+      "name": "GRB Frontend",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder:frontend}",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "runtimeArgs": [
+        "--preserve-symlinks",
+        "--enable-source-maps",
+        "--inspect",
+        "--stack-trace-limit=1000"
+      ],
+      "args": ["-p 3001"],
+      "skipFiles": ["<node_internals>/**"],
+      "internalConsoleOptions": "neverOpen",
+      "console": "integratedTerminal",
+      "env": {
+        "ROARR_LOG": "true",
+        "NODE_OPTIONS": "--enable-source-maps"
+      },
+      "restart": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "GRB Build Manifests",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "autoAttachChildProcesses": true,
+      "program": "${workspaceFolder:k8s}/dist/main.js",
+      "resolveSourceMapLocations": ["${workspaceFolder}/**"],
+      "runtimeArgs": ["--enable-source-maps", "--stack-trace-limit=1000"],
+      "restart": true
+    }
+  ],
+
+  "compounds": [
+    {
+      "name": "API + Frontend",
+
+      "configurations": ["GRB Api", "GRB Frontend"]
+    },
+    {
+      "name": "API + Discord Bot",
+      "configurations": ["GRB Bot", "GRB Api"]
+    }
+  ]
+}

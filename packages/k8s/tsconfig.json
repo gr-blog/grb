@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+
+  "compilerOptions": {
+    "tsBuildInfoFile": "../../.tsbuildinfo/k8s.tsbuildinfo",
+    "rootDir": "src",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "outDir": "dist",
+    "noEmit": false,
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/node_modules"]
+}

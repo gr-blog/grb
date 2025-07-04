@@ -1,0 +1,54 @@
+@import "../../_styles/index.scss";
+
+$font-size: 1.3rem;
+$font-size-title: 1em;
+$font-size-count: 0.5em;
+$font-size-tagline: 0.7em;
+.series-grid {
+    font-size: $font-size;
+    list-style: none;
+
+    @include spacing-none;
+
+    &__item {
+        padding-left: 5px;
+        &:not(:first-child) {
+            margin-top: 1rem;
+        }
+        @include effect-faded-hover;
+    }
+    .series-big-link {
+        display: grid;
+        grid-template-areas: "title title" "bar count" "tagline tagline";
+        grid-template-columns: minmax(0, min-content) auto;
+        grid-template-rows: min-content min-content min-content;
+        align-items: center;
+        column-gap: 5px;
+        &__title {
+            grid-area: title;
+            font-size: $font-size-title;
+            @include series-effect(var(--series-color));
+        }
+
+        &__bar {
+            grid-area: bar;
+            height: 13px;
+            background-color: var(--series-color);
+        }
+        &__count {
+            grid-area: count;
+            color: var(--series-color);
+            font-size: $font-size-count;
+            font-weight: 500;
+        }
+        &__tagline {
+            margin-top: 4px;
+            grid-area: tagline;
+            color: var(--fg-series-tagline);
+            font-size: $font-size-tagline;
+            @extend %no-margin-padding;
+            justify-self: start;
+            text-transform: lowercase;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+@import "../../_styles/index.scss";
+
+$font-size: 0.9rem;
+$font-size-title: 1.1em;
+$font-size-series: 1.2em;
+$font-size-stats: 1em;
+
+.post-item {
+    font-size: $font-size;
+    transition: 0.2s;
+    padding-left: 5px;
+    @include effect-faded-hover;
+
+    &__content {
+        display: grid;
+        grid-template-areas: "title title" "series info";
+        grid-template-columns: 1fr 4fr;
+        align-items: center;
+        justify-items: stretch;
+    }
+    &__title {
+        grid-area: title;
+        font-size: $font-size-title;
+        overflow: hidden;
+        @include spacing-none;
+        @include title-effect(var(--fg-link), var(--series-color));
+    }
+
+    &__stats {
+        grid-area: info;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        justify-self: end;
+        font-size: $font-size-stats;
+    }
+    &__series {
+        grid-area: series;
+        font-size: $font-size-series;
+    }
+}

@@ -1,0 +1,49 @@
+@import "../../_styles/index.scss";
+.footer {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__box {
+        @include main-column-layout;
+        align-items: center;
+        position: relative;
+        background: var(--bg-page-footer);
+        box-sizing: border-box;
+        height: var(--height-footer);
+    }
+    &__made {
+        display: block;
+        position: absolute;
+        right: 20px;
+        bottom: 15px;
+        font-size: var(--font-size-made-with);
+        color: var(--fg-series-tagline);
+    }
+
+    &__sitemap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @extend %no-margin-padding;
+            li {
+                &:not(:last-child) {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    &__vanity {
+        font-size: var(--font-size-footer-vanity);
+        color: var(--fg-readable);
+        font-weight: 700;
+    }
+}

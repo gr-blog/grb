@@ -1,0 +1,57 @@
+@import "../../_styles/index.scss";
+[id="menu"] {
+    position: fixed;
+    display: flex;
+    pointer-events: all;
+    flex-direction: column;
+    z-index: 2000;
+    right: 0;
+    background: var(--bg-page-body);
+    .menu__heading {
+        color: var(--fg-text-heading);
+        font-variant: small-caps;
+        @include spacing-none;
+        font-size: 2rem;
+        padding-left: 8px;
+        padding-top: 5px;
+        width: 60%;
+    }
+
+    top: 0;
+    max-width: 300px;
+    filter: drop-shadow(2px 2px 1.5rem rgba(0, 0, 0, 0.5));
+    .menu__close {
+        position: absolute;
+        color: var(--fg-menu-button);
+        right: 1rem;
+        top: 1.32rem;
+        z-index: 3000;
+    }
+}
+body:has(.menu-portal) {
+    .page {
+        filter: blur(1px);
+        pointer-events: none;
+    }
+}
+
+.menu-portal {
+    @include spacing-none;
+
+    height: 100vh;
+    padding-top: 1.5rem;
+
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    width: min(calc(100vw - 1rem - 3px), 500px);
+}
+
+.menu-button {
+    font-size: 2.25rem;
+    color: var(--fg-menu-button);
+    padding-right: 0.5rem;
+    @include center-center;
+    > i {
+        display: block;
+    }
+}

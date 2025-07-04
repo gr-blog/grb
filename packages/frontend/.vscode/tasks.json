@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "watch next",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["watch"]
+    },
+    {
+      "label": "watch tsc",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["watch:tsc"],
+      "problemMatcher": "$tsc-watch"
+    }
+  ]
+}

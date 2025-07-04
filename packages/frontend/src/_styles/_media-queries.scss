@@ -1,0 +1,31 @@
+$mobile: 800px;
+$large: 1280px;
+@mixin is-mobile() {
+    @media (width < ($mobile - 1)) {
+        @content;
+    }
+}
+
+@mixin is-small() {
+    @media ($mobile <= width < ($large - 1)) {
+        @content;
+    }
+}
+
+@mixin is-small-or-mobile() {
+    @media (width < ($large - 1)) {
+        @content;
+    }
+}
+
+@mixin is-large() {
+    @media (width >= $large) {
+        @content;
+    }
+}
+
+@mixin is-large-or-small() {
+    @media (width >= $mobile) {
+        @content;
+    }
+}

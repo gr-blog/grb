@@ -1,0 +1,7 @@
+@import "../../_styles/index";
+.post-stats-long {
+    @include spacing-none;
+    padding-left: var(--padding-column-2);
+
+    @include itemized-list();
+}
