@@ -1,7 +1,10 @@
 import { Image } from "@k8ts/instruments"
-import { IMAGE_SUFFIX } from "./git-info"
+import { IMAGE_TAG } from "./git-info"
 
-const grb = Image.host("registry.host").author("grb").image("grb")
-export const grb_api = grb.tag(`api${IMAGE_SUFFIX}`)
-export const grb_frontend = grb.tag(`frontend${IMAGE_SUFFIX}`)
-export const grb_bot = grb.tag(`bot${IMAGE_SUFFIX}`)
+const grb = Image.host("ghcr.io").author("gr-blog")
+function getImage(svc: string) {
+    return grb.image(svc).tag(IMAGE_TAG)
+}
+export const grb_api = getImage(`api`)
+export const grb_frontend = getImage(`frontend`)
+export const grb_bot = getImage(`bot`)
