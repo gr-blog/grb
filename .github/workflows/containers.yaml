@@ -57,52 +57,52 @@ jobs:
   # --------------------------------------------------
   # 1. Build & push the per-arch images
   # --------------------------------------------------
-# --------------------------------------------------
-# 1. Build & push per-arch images  (matrix: api | frontend | bot)
-# --------------------------------------------------
-image:
-  runs-on: ubuntu-latest
-  needs: changes
-  container: moby/buildkit:latest
-  strategy:
-    fail-fast: false
-    matrix:
-      service: [api, frontend, bot]
+  # --------------------------------------------------
+  # 1. Build & push per-arch images  (matrix: api | frontend | bot)
+  # --------------------------------------------------
+  image:
+    runs-on: ubuntu-latest
+    needs: changes
+    container: moby/buildkit:latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [api, frontend, bot]
 
-  env:
-    SERVICE: ${{ matrix.service }}
+    env:
+      SERVICE: ${{ matrix.service }}
 
-  steps:
-    # ---- 0. Gate: decide if we actually need to run for this service ----
-    - name: Decide whether ${{ matrix.service }} changed
-      id: gate
-      run: |
-        case "${{ matrix.service }}" in
-          api)      SHOULD=${{ needs.changes.outputs.api      }} ;;
-          frontend) SHOULD=${{ needs.changes.outputs.frontend }} ;;
-          bot)      SHOULD=${{ needs.changes.outputs.bot      }} ;;
-        esac
-        echo "should_run=$SHOULD" >> "$GITHUB_ENV"
+    steps:
+      # ---- 0. Gate: decide if we actually need to run for this service ----
+      - name: Decide whether ${{ matrix.service }} changed
+        id: gate
+        run: |
+          case "${{ matrix.service }}" in
+            api)      SHOULD=${{ needs.changes.outputs.api      }} ;;
+            frontend) SHOULD=${{ needs.changes.outputs.frontend }} ;;
+            bot)      SHOULD=${{ needs.changes.outputs.bot      }} ;;
+          esac
+          echo "should_run=$SHOULD" >> "$GITHUB_ENV"
 
-    # Real build path (only runs when should_run == true) ---------------
-    - uses: actions/checkout@v4
-      if: env.should_run == 'true'
+      # Real build path (only runs when should_run == true) ---------------
+      - uses: actions/checkout@v4
+        if: env.should_run == 'true'
 
-    - name: Compute SHORT_SHA
-      if: env.should_run == 'true'
-      run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+      - name: Compute SHORT_SHA
+        if: env.should_run == 'true'
+        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
 
-    - name: Log in to GHCR
-      uses: docker/login-action@v3
-      if: env.should_run == 'true'
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        if: env.should_run == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build & push image
-      if: env.should_run == 'true'
-      run: ./build-target.sh
+      - name: Build & push image
+        if: env.should_run == 'true'
+        run: ./build-target.sh
 
   manifest:
     needs: [image, changes] # keep both so we can reuse the gate logic
