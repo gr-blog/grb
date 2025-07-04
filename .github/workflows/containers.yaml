@@ -57,66 +57,86 @@ jobs:
   # --------------------------------------------------
   # 1. Build & push the per-arch images
   # --------------------------------------------------
-  image:
-    strategy:
-      matrix:
-        service: [api, frontend, bot]
-    name: push image
-    runs-on: ubuntu-latest
-    needs: changes
-    container: moby/buildkit:latest
+# --------------------------------------------------
+# 1. Build & push per-arch images  (matrix: api | frontend | bot)
+# --------------------------------------------------
+image:
+  runs-on: ubuntu-latest
+  needs: changes
+  container: moby/buildkit:latest
+  strategy:
+    fail-fast: false
+    matrix:
+      service: [api, frontend, bot]
 
-    env:
-      SERVICE: ${{ matrix.service }}
+  env:
+    SERVICE: ${{ matrix.service }}
 
-    # run only if the relevant service (or its shared parts) changed
-    if: |
-      (matrix.service == 'api' && needs.changes.outputs.api == 'true') ||
-      (matrix.service == 'frontend' && needs.changes.outputs.frontend == 'true') ||
-      (matrix.service == 'bot' && needs.changes.outputs.bot == 'true')
+  steps:
+    # ---- 0. Gate: decide if we actually need to run for this service ----
+    - name: Decide whether ${{ matrix.service }} changed
+      id: gate
+      run: |
+        case "${{ matrix.service }}" in
+          api)      SHOULD=${{ needs.changes.outputs.api      }} ;;
+          frontend) SHOULD=${{ needs.changes.outputs.frontend }} ;;
+          bot)      SHOULD=${{ needs.changes.outputs.bot      }} ;;
+        esac
+        echo "should_run=$SHOULD" >> "$GITHUB_ENV"
 
-    steps:
-      - uses: actions/checkout@v4
+    # Real build path (only runs when should_run == true) ---------------
+    - uses: actions/checkout@v4
+      if: env.should_run == 'true'
 
-      - name: Compute SHORT_SHA
-        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+    - name: Compute SHORT_SHA
+      if: env.should_run == 'true'
+      run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
 
-      - name: Log-in to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Log in to GHCR
+      uses: docker/login-action@v3
+      if: env.should_run == 'true'
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build & push image
-        run: ./build-target.sh
+    - name: Build & push image
+      if: env.should_run == 'true'
+      run: ./build-target.sh
 
-  # --------------------------------------------------
-  # 2. Assemble & push the multi-arch manifests
-  # --------------------------------------------------
   manifest:
-    strategy:
-      matrix:
-        service: [api, frontend, bot]
-    name: push manifest
-    needs: image # automatically skipped if image was skipped
+    needs: [image, changes] # keep both so we can reuse the gate logic
     runs-on: ubuntu-latest
     container: ghcr.io/oras-project/oras:v1.2.2
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [api, frontend, bot]
 
     env:
       SERVICE: ${{ matrix.service }}
 
     steps:
-      - name: Install prerequisites (git & node)
+      - name: Decide whether ${{ matrix.service }} changed
+        id: gate
         run: |
-          apk add --no-cache git nodejs npm bash
+          case "${{ matrix.service }}" in
+            api)      SHOULD=${{ needs.changes.outputs.api      }} ;;
+            frontend) SHOULD=${{ needs.changes.outputs.frontend }} ;;
+            bot)      SHOULD=${{ needs.changes.outputs.bot      }} ;;
+          esac
+          echo "should_run=$SHOULD" >> "$GITHUB_ENV"
+
+      # Real manifest work (only on changed services) ---------------------
       - uses: actions/checkout@v4
-      # Native ORAS login – token piped over stdin
-      - name: Log in to GHCR with ORAS
+        if: env.should_run == 'true'
+
+      - name: Log in with ORAS
+        if: env.should_run == 'true'
         run:
-          echo "${{ secrets.GITHUB_TOKEN }}" | \ oras login ${{ env.REGISTRY }} -u ${{ github.actor
-          }} --password-stdin
-          # --password-stdin keeps the token out of logs :contentReference[oaicite:2]{index=2}
+          echo "${{ secrets.GITHUB_TOKEN }}" | \ oras login ghcr.io -u ${{ github.actor }}
+          --password-stdin
 
       - name: Push manifest list
+        if: env.should_run == 'true'
         run: ./manifest.sh
