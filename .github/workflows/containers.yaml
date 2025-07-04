@@ -32,7 +32,7 @@ jobs:
           base: ${{ github.event.before }} # compare against the previous commit
           filters: |
             # Shared bits ─ identical to *paths_shared in GitLab CI
-            _shared:
+            _shared: &shared
               - packages/k8s/src/shared/**/*
               - packages/k8s/src/main.ts
               - packages/tsconfig.base.json
@@ -42,15 +42,15 @@ jobs:
               - Dockerfile
             # Service-specific filters include the shared group
             api:
-              - *_shared
+              - *shared
               - packages/k8s/src/api/**/*
               - packages/api/**/*
             frontend:
-              - *_shared
+              - *shared
               - packages/k8s/src/frontend/**/*
               - packages/frontend/**/*
             bot:
-              - *_shared
+              - *shared
               - packages/k8s/src/bot/**/*
               - packages/bot/**/*
 
