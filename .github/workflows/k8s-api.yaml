@@ -7,6 +7,8 @@ on:
       - "manifest.sh"
       - "packages/k8s/**"
       - "packages/api/**"
+      - "scripts/manifest.sh"
+      - "scripts/*.manifest.sh"
       - ".github/workflows/k8s-api.yml"
   workflow_dispatch:
 
@@ -18,7 +20,7 @@ env:
 jobs:
   manifest:
     runs-on: ubuntu-latest
-    container: ghcr.io/oras-project/oras:v1.2.2
+    container: node:22-alpine
     steps:
       - uses: actions/checkout@v4
       - run: chmod +x ./manifest.sh; ./manifest.sh
