@@ -23,4 +23,4 @@ jobs:
     container: node:22-alpine
     steps:
       - uses: actions/checkout@v4
-      - run: chmod +x ./manifest.sh; ./manifest.sh
+      - run: chmod +x ./scripts/run.manifest.sh; ./scripts/run.manifest.sh

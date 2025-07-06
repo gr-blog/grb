@@ -21,4 +21,4 @@ jobs:
     container: moby/buildkit:latest
     steps:
       - uses: actions/checkout@v4
-      - run: chmod +x ./build-target.sh; ./build-target.sh
+      - run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
