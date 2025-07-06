@@ -2,8 +2,8 @@
 set -eux
 
 script_dir=$(cd "$(dirname "$0")" && pwd)
-chmod +x "$script_dir/_install-oras.sh"
-"$script_dir/_install-oras.sh"
+chmod +x "$script_dir/_install.manifest.sh"
+"$script_dir/_install.manifest.sh"
 
 CI_PROJECT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
 CI_JOB_ID="${GITHUB_RUN_ID}"
@@ -25,7 +25,6 @@ yarn set version stable
 script_dir=$(cd "$(dirname "$0")" && pwd)
 chmod +x "$script_dir/_install.manifest.sh"
 "$script_dir/_install.manifest.sh"
-
 yarn workspaces focus k8s
 export IMAGE_SUFFIX="$SHORT_SHA"
 yarn workspace k8s run manifest
