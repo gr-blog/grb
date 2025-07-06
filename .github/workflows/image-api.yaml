@@ -1,0 +1,24 @@
+name: Build image – api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "build-target.sh"
+      - "packages/k8s/**"
+      - "packages/api/**"
+      - ".github/workflows/build-image-api.yml"
+  workflow_dispatch:
+
+env:
+  SERVICE: api
+  REGISTRY: ghcr.io
+  IMAGE_OWNER: ${{ github.repository_owner }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: moby/buildkit:latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./build-target.sh

@@ -90,7 +90,7 @@ jobs:
 
       - name: Compute SHORT_SHA
         if: env.should_run == 'true'
-        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+        run: echo "
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
