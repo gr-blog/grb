@@ -7,7 +7,7 @@ on:
       - "manifest.sh"
       - "packages/k8s/**"
       - "packages/api/**"
-      - ".github/workflows/push-k8s-api.yml"
+      - ".github/workflows/k8s-api.yml"
   workflow_dispatch:
 
 env:
