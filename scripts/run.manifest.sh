@@ -2,9 +2,8 @@
 set -eux
 
 script_dir=$(cd "$(dirname "$0")" && pwd)
-chmod +x "$script_dir"/_*.manifest.sh
+chmod +x "$script_dir/_install.manifest.sh"
 "$script_dir/_install.manifest.sh"
-"$script_dir/_install.git.sh"
 
 CI_PROJECT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
 CI_JOB_ID="${GITHUB_RUN_ID}"
