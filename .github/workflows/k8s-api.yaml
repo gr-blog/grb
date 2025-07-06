@@ -2,7 +2,7 @@ name: Push manifest – api
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "manifest.sh"
       - "packages/k8s/**"
