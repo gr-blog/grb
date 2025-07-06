@@ -42,15 +42,5 @@
     "typescript": "^5.8.3"
   },
   "packageManager": "yarn@4.9.2",
-  "sourcesRoot": "src",
-  "dependencies": {
-    "pm2": "^6.0.8",
-    "ws": "^8.18.3"
-  },
-  "resolutions": {
-    "@k8ts/workspace": "portal:/C:/codegr/k8ts",
-    "@k8ts/instruments": "portal:/C:/codegr/k8ts/packages/instruments",
-    "k8ts": "portal:/C:/codegr/k8ts/packages/k8ts",
-    "@k8ts/metadata": "portal:/C:/codegr/k8ts/packages/metadata"
-  }
+  "sourcesRoot": "src"
 }

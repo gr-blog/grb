@@ -15,9 +15,9 @@
     "'src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'": "node_modules/.bin/prettier --write"
   },
   "dependencies": {
-    "@k8ts/instruments": "^0.4.15",
-    "@k8ts/metadata": "^0.4.10",
-    "k8ts": "^0.6.1"
+    "@k8ts/instruments": "^0.5.0",
+    "@k8ts/metadata": "^0.4.11",
+    "k8ts": "^0.7.0"
   },
   "devDependencies": {
     "@gregros/eslint-config": "^0.7.1",
