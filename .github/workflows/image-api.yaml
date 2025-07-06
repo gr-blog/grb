@@ -9,7 +9,6 @@ on:
       - "packages/api/**"
       - ".github/workflows/image-api.yml"
   workflow_dispatch:
-
 env:
   SERVICE: api
   REGISTRY: ghcr.io
@@ -21,4 +20,4 @@ jobs:
     container: moby/buildkit:latest
     steps:
       - uses: actions/checkout@v4
-      - run: bash ./build-target.sh
+      - run: chmod +x ./build-target.sh; ./build-target.sh
