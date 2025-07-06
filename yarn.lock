@@ -1027,9 +1027,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@k8ts/instruments@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@k8ts/instruments@npm:0.5.0"
+"@k8ts/instruments@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@k8ts/instruments@npm:0.5.1"
   dependencies:
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
@@ -1041,22 +1041,24 @@ __metadata:
     simple-git: "npm:^3.27.0"
     stacktracey: "npm:^2.1.8"
     timezone-enum: "npm:^1.0.4"
+    what-are-you: "npm:^0.1.12"
   peerDependencies:
-    "@k8ts/metadata": ^0.4.10
-  checksum: 10c0/b9b619be3e989c49111a80001fdd090c686f84757459aa46411fb2de63b8056d25b38e332adc3668d87bd52193e0118c2a97626b0a4c9649ae2bfed25eb93aa1
+    "@k8ts/metadata": ^0.4.13
+  checksum: 10c0/c7917e9bece89ecd956befc54ce698320f47960338c55766b0960a4a7967b3ad18cf95954e4842349ba2b484e6909592a6807ece4abd9183ea306358647ce20c
   languageName: node
   linkType: hard
 
-"@k8ts/metadata@npm:^0.4.12":
-  version: 0.4.12
-  resolution: "@k8ts/metadata@npm:0.4.12"
+"@k8ts/metadata@npm:^0.4.13":
+  version: 0.4.13
+  resolution: "@k8ts/metadata@npm:0.4.13"
   dependencies:
     doddle: "npm:^5.2.0"
     immutable: "npm:^5.0.3"
     ip-address: "npm:^10.0.1"
     lodash: "npm:^4.17.21"
     parjs: "npm:^1.3.9"
-  checksum: 10c0/793d9249bf72dab9ab91a19ec29d81b4f643ac4d9a0b872dd344649dcf06e45c73f202834d9bd088aef46f15af85d20fb8c9f142ca931271b403fe368ad6de6a
+    what-are-you: "npm:^0.1.12"
+  checksum: 10c0/e2469a21a2e0434c54c7815d65a03e241622f6eb2bb1788229fada35c6e3a9f526317222ff106a99a98685d642ae1357694430a46948102499eb8a53200ae649
   languageName: node
   linkType: hard
 
@@ -7195,8 +7197,8 @@ __metadata:
   resolution: "k8s@workspace:packages/k8s"
   dependencies:
     "@gregros/eslint-config": "npm:^0.7.1"
-    "@k8ts/instruments": "npm:^0.5.0"
-    "@k8ts/metadata": "npm:^0.4.12"
+    "@k8ts/instruments": "npm:^0.5.1"
+    "@k8ts/metadata": "npm:^0.4.13"
     "@types/node": "npm:^22.15.29"
     k8ts: "npm:^0.7.0"
     npm-run-all: "npm:^4.1.5"

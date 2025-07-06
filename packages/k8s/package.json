@@ -15,8 +15,8 @@
     "'src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'": "node_modules/.bin/prettier --write"
   },
   "dependencies": {
-    "@k8ts/instruments": "^0.5.0",
-    "@k8ts/metadata": "^0.4.12",
+    "@k8ts/instruments": "^0.5.1",
+    "@k8ts/metadata": "^0.4.13",
     "k8ts": "^0.7.0"
   },
   "devDependencies": {
