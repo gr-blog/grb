@@ -21,4 +21,4 @@ jobs:
     container: ghcr.io/oras-project/oras:v1.2.2
     steps:
       - uses: actions/checkout@v4
-      - run: ./manifest.sh
+      - run: bash ./manifest.sh

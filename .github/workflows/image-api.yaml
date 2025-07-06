@@ -21,4 +21,4 @@ jobs:
     container: moby/buildkit:latest
     steps:
       - uses: actions/checkout@v4
-      - run: ./build-target.sh
+      - run: bash ./build-target.sh
