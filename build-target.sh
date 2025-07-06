@@ -1,5 +1,6 @@
 #!/bin/sh
-set -eux pipefail
+set -eux
+SHORT_SHA="$(printf '%s' "$GITHUB_SHA" | cut -c1-7)"
 
 if [ -z "${SERVICE:-}" ]; then
     echo "Error: SERVICE variable is not set."
