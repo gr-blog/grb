@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 FROM node:22-alpine AS p_base
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat git
 WORKDIR /app
 ARG SERVICE
 ENV NODE_ENV=production
