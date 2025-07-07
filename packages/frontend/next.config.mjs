@@ -1,6 +1,6 @@
 import createMDX from "@next/mdx"
 
-const remotePatterns = ["localhost", "host.docker.internal", "api", "api.grb.local"].map(
+const remotePatterns = ["localhost", "host.docker.internal"].map(
     hostname => ({
         protocol: "http",
         hostname,
@@ -12,7 +12,7 @@ const remotePatterns = ["localhost", "host.docker.internal", "api", "api.grb.loc
 remotePatterns.push({
     hostname: "api.grb.svc.cluster.local",
     protocol: "http",
-    pathname: "images/**"
+    pathname: "**"
 })
 
 /** @type {import("next").NextConfig} */
