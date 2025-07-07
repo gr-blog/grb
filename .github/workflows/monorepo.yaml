@@ -95,6 +95,7 @@ jobs:
       - name: Building ${{ matrix.package }}
         run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
         env:
+          SERVICE: ${{ matrix.package }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_SHA: ${{ github.sha }}
@@ -121,6 +122,8 @@ jobs:
       - name: Manifesting ${{ matrix.package }}
         run: chmod +x ./scripts/run.manifest.sh; ./scripts/run.manifest.sh
         env:
+          SERVICE: ${{ matrix.package }}
+
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_SHA: ${{ github.sha }}
