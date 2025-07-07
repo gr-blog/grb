@@ -21,7 +21,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    container: moby/buildkit:latest
     steps:
       - uses: actions/checkout@v4
       - run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
