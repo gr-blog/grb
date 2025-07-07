@@ -4,7 +4,7 @@ set -eux
 script_dir=$(cd "$(dirname "$0")" && pwd)
 chmod +x "$script_dir/_install.manifest.sh"
 "$script_dir/_install.manifest.sh"
-
+"$script_dir/_login.manifest.sh"
 CI_PROJECT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
 CI_JOB_ID="${GITHUB_RUN_ID}"
 CI_JOB_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
@@ -36,7 +36,7 @@ IMAGE_OWNER=$(printf '%s' "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]
 IMAGE_NAME="$REGISTRY/$IMAGE_OWNER/grb-k8s-$SERVICE"
 
 # Push two tags: the git short‑sha and "latest"
-IMAGE_TAGS="$SHORT_SHA latest"
+IMAGE_TAGS="$SHORT_SHA,latest"
 
 manifest_base="packages/k8s/.k8ts"
 mkdir -p "$manifest_base/.$SERVICE"
@@ -47,13 +47,11 @@ IMAGE_TITLE="GRB‑k8s $SERVICE Manifests"
 
 # ---------- 4. Push the manifest list with ORAS ------------------------------
 
-for tag in $IMAGE_TAGS; do
-    oras push \
-        --artifact-type application/vnd.oci.image.manifest.v1+json \
-        --annotation "org.opencontainers.image.url=$CI_PROJECT_URL" \
-        --annotation "org.opencontainers.image.title=$IMAGE_TITLE" \
-        --annotation "com.github.actions.run.id=$CI_JOB_ID" \
-        --annotation "com.github.actions.run.url=$CI_JOB_URL" \
-        "$IMAGE_NAME:$tag" \
-        "$MANIFEST_PATH"
-done
+oras push \
+    --artifact-type application/vnd.oci.image.manifest.v1+json \
+    --annotation "org.opencontainers.image.url=$CI_PROJECT_URL" \
+    --annotation "org.opencontainers.image.title=$IMAGE_TITLE" \
+    --annotation "com.github.actions.run.id=$CI_JOB_ID" \
+    --annotation "com.github.actions.run.url=$CI_JOB_URL" \
+    "$IMAGE_NAME:$IMAGE_TAGS" \
+    "$MANIFEST_PATH"

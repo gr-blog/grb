@@ -20,6 +20,9 @@ env:
 jobs:
   manifest:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     container: node:22-alpine
     steps:
       - uses: actions/checkout@v4

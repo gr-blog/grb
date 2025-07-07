@@ -1,5 +1,8 @@
 #!/bin/sh
 set -eux
+scripts="$(cd "$(dirname "$0")" && pwd)"
+chmod +x "$scripts/_login.image.sh"
+"$scripts/_login.image.sh"
 SHORT_SHA="$(printf '%s' "$GITHUB_SHA" | cut -c1-7)"
 
 if [ -z "${SERVICE:-}" ]; then
