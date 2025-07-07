@@ -1,0 +1,40 @@
+name: TESTING DYNAMIC MATRIX
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        type: choice
+        description: Project to build
+        options:
+          - frontend
+          - api
+          - bot
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+    steps:
+      - id: set
+        run: |
+          SELECTED="${{ github.event.inputs.project }}"
+          echo "matrix=$(jq -c --arg p "$SELECTED" '[{ project: $p }]' <<< '{}')" >> "$GITHUB_OUTPUT"
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include: ${{ fromJson(needs.setup.outputs.matrix) }}
+    steps:
+      - run: echo "Building ${{ matrix.project }}"
+      - run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
+        env:
+          SERVICE: ${{ matrix.project }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
