@@ -19,7 +19,7 @@ jobs:
   detect:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.manual.outputs.matrix || steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -35,7 +35,7 @@ jobs:
 
       # B) Otherwise, detect which folders changed ------------------------------
       - name: Filter changed paths
-        if: ${{ steps.manual.outcome == '' }} # skip if manual already ran
+        if: ${{ steps.manual.outcome == 'skipped' }}
         id: filter
         uses: dorny/paths-filter@v3 # v3 is current as of 2025-07
         with:
@@ -63,7 +63,7 @@ jobs:
               - packages/bot/**/*
 
       - name: Build matrix JSON
-        if: ${{ steps.manual.outcome == '' }}
+        if: ${{ steps.manual.outcome == 'skipped' }}
         id: set-matrix
         run: |
           declare -a list=()
