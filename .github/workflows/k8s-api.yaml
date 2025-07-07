@@ -9,7 +9,7 @@ on:
       - "packages/api/**"
       - "scripts/manifest.sh"
       - "scripts/*.manifest.sh"
-      - ".github/workflows/k8s-api.yml"
+      - ".github/workflows/k8s-api.yaml"
   workflow_dispatch:
 
 env:

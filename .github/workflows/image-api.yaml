@@ -8,7 +8,7 @@ on:
       - "packages/k8s/**"
       - "packages/api/**"
       - "scripts/*.image.sh"
-      - ".github/workflows/image-api.yml"
+      - ".github/workflows/image-api.yaml"
   workflow_dispatch:
 env:
   SERVICE: api
