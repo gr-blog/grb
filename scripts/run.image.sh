@@ -20,7 +20,7 @@ docker buildx create --name ci-builder --driver docker-container --use 2>/dev/nu
 docker buildx use ci-builder
 docker buildx inspect --bootstrap
 
-IMAGE_NAME="ghcr.io/grb/$SERVICE"
+IMAGE_NAME="$REGISTRY/$IMAGE_OWNER/grb-$SERVICE"
 export IMAGE_CANON="$IMAGE_NAME"
 export IMAGE_COMMIT="$IMAGE_NAME:$SHORT_SHA"
 CACHE_IMAGE="$IMAGE_NAME:cache"
