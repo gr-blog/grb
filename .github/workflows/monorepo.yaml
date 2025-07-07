@@ -44,6 +44,7 @@ jobs:
               - packages/k8s/src/shared/**/*
               - packages/k8s/src/main.ts
               - packages/tsconfig.base.json
+              - .github/workflows/monorepo.yaml
               - scripts/*.sh
               - Dockerfile
               - package.json
@@ -89,6 +90,8 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.detect.outputs.matrix) }}
     steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
       - name: Building ${{ matrix.package }}
         run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
         env:
@@ -113,6 +116,8 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.detect.outputs.matrix) }}
     steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
       - name: Manifesting ${{ matrix.package }}
         run: chmod +x ./scripts/run.manifest.sh; ./scripts/run.manifest.sh
         env:
