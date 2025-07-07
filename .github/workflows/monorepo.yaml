@@ -54,12 +54,12 @@ jobs:
               - .yarnrc.yml
             frontend:
               - *shared
-              - packages/k8s/src/api/**/*
-              - packages/api/**/*
-            api:
-              - *shared
               - packages/k8s/src/frontend/**/*
               - packages/frontend/**/*
+            api:
+              - *shared
+              - packages/k8s/src/api/**/*
+              - packages/api/**/*
             bot:
               - *shared
               - packages/k8s/src/bot/**/*
