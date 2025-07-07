@@ -1,0 +1,119 @@
+name: MONOREPO BUILD
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        type: choice
+        description: Project to build
+        required: false
+        options:
+          - frontend
+          - api
+          - bot
+  push:
+    branches:
+      - master
+
+jobs:
+  # ---------------------------------- 1) detect ----------------------------------
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      # A) Did the user pick a package in the UI?
+      - name: Short-circuit for manual run
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.package != '' }}
+        id: manual
+        run: |
+          jq -nc --arg p "${{ inputs.package }}" '[{package:$p}]' \
+            > matrix.json
+          echo "matrix=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
+
+      # B) Otherwise, detect which folders changed ------------------------------
+      - name: Filter changed paths
+        if: ${{ steps.manual.outcome == '' }} # skip if manual already ran
+        id: filter
+        uses: dorny/paths-filter@v3 # v3 is current as of 2025-07
+        with:
+          filters: |
+            _common:
+              - packages/k8s/src/shared/**/*
+              - packages/k8s/src/main.ts
+              - packages/tsconfig.base.json
+              - scripts/*.sh
+              - Dockerfile
+              - package.json
+              - yarn.lock
+              - .yarnrc.yml
+            frontend:
+              - *shared
+              - packages/k8s/src/api/**/*
+              - packages/api/**/*
+            api:
+              - *shared
+              - packages/k8s/src/frontend/**/*
+              - packages/frontend/**/*
+            bot:
+              - *shared
+              - packages/k8s/src/bot/**/*
+              - packages/bot/**/*
+
+      - name: Build matrix JSON
+        if: ${{ steps.manual.outcome == '' }}
+        id: set-matrix
+        run: |
+          declare -a list=()
+          [[ "${{ steps.filter.outputs.frontend }}" == 'true' ]] && list+=('frontend')
+          [[ "${{ steps.filter.outputs.api }}"     == 'true' ]] && list+=('api')
+          [[ "${{ steps.filter.outputs.bot }}"     == 'true' ]] && list+=('bot')
+
+          # turn Bash array → JSON [{package:"frontend"}, …]
+          jq -nc --argjson a "$(printf '%s\n' "${list[@]}" | jq -R -s 'split("\n")[:-1]')" \
+                 '$a | map({package:.})' > matrix.json
+
+          echo "matrix=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: detect
+    if: ${{ needs.detect.outputs.matrix != '[]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.detect.outputs.matrix) }}
+    steps:
+      - name: Building ${{ matrix.package }}
+        run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
+        env: &env
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+  manifest:
+    needs:
+      - detect
+      - build
+    if: ${{ needs.detect.outputs.matrix != '[]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.detect.outputs.matrix) }}
+    steps:
+      - name: Manifesting ${{ matrix.package }}
+        run: chmod +x ./scripts/run.manifest.sh; ./scripts/run.manifest.sh
+        env: *env
