@@ -1,5 +1,4 @@
 name: MONOREPO BUILD
-
 on:
   workflow_dispatch:
     inputs:
@@ -41,7 +40,7 @@ jobs:
         uses: dorny/paths-filter@v3 # v3 is current as of 2025-07
         with:
           filters: |
-            _common:
+            _common: &shared
               - packages/k8s/src/shared/**/*
               - packages/k8s/src/main.ts
               - packages/tsconfig.base.json
@@ -92,7 +91,7 @@ jobs:
     steps:
       - name: Building ${{ matrix.package }}
         run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
-        env: &env
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_SHA: ${{ github.sha }}
@@ -116,4 +115,10 @@ jobs:
     steps:
       - name: Manifesting ${{ matrix.package }}
         run: chmod +x ./scripts/run.manifest.sh; ./scripts/run.manifest.sh
-        env: *env
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
