@@ -6,7 +6,7 @@ export class GitHubInfo {
         rest ??= {} as X
         return {
             ...rest,
-            owner: "gregros-writes",
+            owner: "gr-blog",
             repo: this._blog,
             ref: "master",
             branch: "master"
