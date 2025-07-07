@@ -28,6 +28,7 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.setup.outputs.matrix) }}
     steps:
+      - uses: actions/checkout@v4
       - run: echo "Building ${{ matrix.project }}"
       - run: chmod +x ./scripts/run.image.sh; ./scripts/run.image.sh
         env:
