@@ -5,8 +5,8 @@ set -eux
 docker buildx create --name ci-builder --driver docker-container --use 2>/dev/null ||
     docker buildx use ci-builder
 
-docker buildx inspect --bootstrap
 printf '%s' "$GITHUB_TOKEN" |
     docker login ghcr.io \
         --username "$GITHUB_ACTOR" \
         --password-stdin
+docker buildx inspect --bootstrap
