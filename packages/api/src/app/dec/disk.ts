@@ -19,11 +19,10 @@ export const DataSourceProvider: Provider<DataSource> = {
                 type: "github"
             }
         }
-        let dir = ds === "sample" ? "./sample-data" : ds
 
         return {
             type: "local",
-            path: resolve(dir).replace(/\\/g, "/")
+            path: resolve(ds).replace(/\\/g, "/")
         }
     }
 }
