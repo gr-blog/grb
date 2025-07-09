@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
 import { aseq } from "doddle"
-import { Post } from "../../entities/post.js"
 import { PostSearchOptions } from "../dto/post.js"
 import { PostFileService } from "./post-file.s.js"
 import { SeriesService } from "./series.s.js"
@@ -14,13 +13,7 @@ export class PostService {
 
     async get(slug: string) {
         const post = await this._postFileService.get(slug)
-        const seriesAndIndex = await this._seriesService.getByPost(slug)
-        const [seriesName, pos] = seriesAndIndex
-        return Post.check({
-            ...post,
-            series: seriesName.slug,
-            pos: pos
-        })
+        return post
     }
 
     search(options: PostSearchOptions) {

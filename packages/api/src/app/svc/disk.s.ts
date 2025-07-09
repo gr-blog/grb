@@ -46,16 +46,10 @@ export class DiskService extends _DataService {
         }
     }
 
-    protected override async _readDir(dirPath: string): Promise<string[]> {
-        try {
-            const files = await globby(`${dirPath}/*`)
-            return files.map(file => this._unresolve(file))
-        } catch (e: any) {
-            if (e.code === "ENOENT") {
-                throw new FileNotFoundError(dirPath)
-            }
-            throw e // Re-throw other errors
-        }
+    protected override async _readAll(): Promise<string[]> {
+        const resolvedGlob = this._resolve("**/*")
+        const files = await globby(resolvedGlob)
+        return files.map(file => this._unresolve(file))
     }
 
     protected override async _readBinary(filePath: string): Promise<Buffer> {

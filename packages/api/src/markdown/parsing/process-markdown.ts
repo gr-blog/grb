@@ -22,8 +22,8 @@ export const ProcessedMarkdown = z.object({
 
 export const processMarkdownContents = z
     .function()
-    .args(z.string(), z.string())
-    .implement((post, markdown) => {
+    .args(z.string())
+    .implement(markdown => {
         markdown = ofmFootnotes(markdown)
         const toc = extractTocFromMarkdown(markdown)
         const cut = cutAtFirstRule(markdown)

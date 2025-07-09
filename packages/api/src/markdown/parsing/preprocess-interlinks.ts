@@ -6,7 +6,18 @@ export interface InterlinkProps {
     text?: string
 }
 
-export function createInternalLinkParser(getPostTitle: (slug: string) => Promise<string>) {
+export function createInternalLinkParser(
+    getPost: (target: string) => Promise<
+        | {
+              slug: string
+              seriesName: string
+              frontmatter: {
+                  title: string
+              }
+          }
+        | undefined
+    >
+) {
     const embed = string("![[").pipe(map(x => "embed"))
     const link = string("[[").pipe(map(x => "link"))
     const embedOrLink = embed.pipe(or(link))
@@ -19,17 +30,19 @@ export function createInternalLinkParser(getPostTitle: (slug: string) => Promise
             if (x.main.includes(".post")) {
                 x.main = `${x.main.replace(".post", "")}`
             }
-            if (x.alt != null) {
-                if (!x.main.startsWith("#")) {
-                    await getPostTitle(x.main)
-                }
-                return `[${x.alt}](/${x.main})`
-            }
             if (x.main.startsWith("#")) {
+                if (x.alt != null) {
+                    return `[${x.alt}](${x.main})`
+                }
                 return `[${x.main.slice(1)}](${x.main})`
             }
-            const title = await getPostTitle(x.main)
-            return `[${title}](/${x.main})`
+            const post = await getPost(x.main)
+            if (!post) {
+                return `[[${x.main}]]`
+            }
+            const linkText = x.alt ?? post.frontmatter.title
+            const linkTarget = `/${post.seriesName}/${post.slug}`
+            return `[${linkText}](${linkTarget})`
         }),
         or(anyCharOrEscape.pipe(map(x => Promise.resolve(x)))),
         many(),

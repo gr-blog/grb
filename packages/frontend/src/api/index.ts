@@ -13,6 +13,7 @@ import {
 } from "@/entities/dto/post"
 import { Series } from "@/entities/series"
 import socialUrls from "@/social-urls"
+import dayjs from "dayjs"
 import { aseq, doddle, type ASeq } from "doddle"
 import { notFound } from "next/navigation"
 import qs from "qs"
@@ -130,13 +131,17 @@ export class BlogApi {
         return aseq(async () => {
             const allSeries = await this.allSeries.pull()
             return posts.map(post => {
-                const postSeries = allSeries.get(post.series)
+                const postSeries = allSeries.get(post.seriesName)
                 return {
                     ...post,
                     series: postSeries!
                 }
             }) as any
         })
+    }
+
+    get isLocal() {
+        return isLocalUrl(this._realHost)
     }
 
     getPosts<Format extends PostFormat>({
@@ -146,14 +151,18 @@ export class BlogApi {
     }: PostSearchOptions<Format>): ASeq<FormatToDoWithSeries[Format]> {
         return aseq(async () => {
             const schema = schemas[format]
-            const stringified = qs.stringify({ format, series })
+            const stringified = qs.stringify({ format, series, limit })
 
             const res = await fetch(`${GRB_API}/${this._blog}/posts?${stringified}`)
             if (!res.ok) {
                 throw new Error(`Failed to fetch posts: ${res.statusText}`)
             }
             const json = await res.json()
-            const posts = (json as FormatToDto[Format][]).map(post => schema.parse(post))
+            let posts = (json as FormatToDto[Format][]).map(post => schema.parse(post))
+            const now = dayjs()
+            posts = posts.filter(p => {
+                return this.isLocal || p.published.isBefore(now)
+            })
             return this._matchWithSeries(posts)
         }).cache() as any
     }

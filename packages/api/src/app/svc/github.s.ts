@@ -39,8 +39,8 @@ export class GithubService extends _DataService {
         if (!dir) {
             throw new FileNotFoundError(`${filePath} is not a file`)
         }
-        const dirContents = await this.readDir(dir)
-        if (!dirContents.includes(filePath)) {
+        const dirContents = await this.glob(filePath).first().pull()
+        if (!dirContents) {
             throw new FileNotFoundError(`${filePath} not found in ${dir}`)
         }
         const { data } = await this._octokit.rest.repos.getContent(
@@ -66,15 +66,13 @@ export class GithubService extends _DataService {
         return buffer.toString("utf-8")
     }
 
-    protected async _readDir(path: string): Promise<string[]> {
-        const { data } = await this._octokit.rest.repos.getContent(
-            this._githubInfo.location({
-                path
-            })
-        )
-        if (!Array.isArray(data)) {
-            throw new FileNotFoundError(`${path} is not a directory`)
-        }
-        return data.map(item => item.path)
+    protected async _readAll(): Promise<string[]> {
+        const { data } = await this._octokit.git.getTree({
+            owner: this._githubInfo.owner,
+            repo: this._githubInfo.repo,
+            tree_sha: this._githubInfo.branch,
+            recursive: "true"
+        })
+        return data.tree.map(x => x.path)
     }
 }

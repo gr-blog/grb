@@ -1,7 +1,6 @@
 import { CACHE_MANAGER } from "@nestjs/cache-manager"
 import { Inject, Injectable } from "@nestjs/common"
 import { Octokit } from "@octokit/rest"
-import { Cache } from "cache-manager"
 import dayjs from "dayjs"
 import {
     catchError,
@@ -13,6 +12,7 @@ import {
     timer
 } from "rxjs"
 import { OCTOKIT } from "../dec/octokit.js"
+import { PrefixedCache } from "../dec/prefixed-cache.js"
 import { GitHubInfo } from "./github-info.js"
 import { MyLoggerService } from "./logger.s.js"
 
@@ -25,7 +25,7 @@ export class GithubPollerService {
     private readonly _pollers: Map<string, GithubPoller> = new Map()
     constructor(
         @Inject(OCTOKIT) private readonly _octokit: Octokit,
-        @Inject(CACHE_MANAGER) private readonly _cache: Cache,
+        @Inject(CACHE_MANAGER) private readonly _cache: PrefixedCache,
         private readonly _logger: MyLoggerService
     ) {
         this._logger.child({

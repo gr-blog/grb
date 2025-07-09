@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common"
-import path, { basename } from "path"
+import path from "path"
 import { SeriesFile } from "../../entities/series.js"
 import { logger } from "../../logging/index.js"
 import { _DataService, DATA_SERVICE } from "./data.js"
@@ -18,7 +18,8 @@ export class SeriesFileService {
                     slug: true
                 })
             )
-            const slug = basename(filePath, ".yaml")
+            const beforeLastPart = path.basename(path.dirname(filePath))
+            const slug = beforeLastPart
 
             return {
                 hidden: false,
@@ -34,19 +35,24 @@ export class SeriesFileService {
         }
     }
     async read(slug: string): Promise<SeriesFile> {
-        return this._readFile(path.join(this._folder, `${slug.toLowerCase()}.yaml`))
+        return this._readFile(path.join(this._folder, slug, "series.yaml"))
     }
 
     private get _folder() {
-        return "series"
+        return "posts"
     }
 
     async readAll(): Promise<SeriesFile[]> {
-        const seriesFiles = await this._diskService.readDir(this._folder)
-        return Promise.all(
+        const seriesFiles = await this._diskService.glob("posts/*/series.yaml").toArray().pull()
+        const results = await Promise.all(
             seriesFiles.map(async file => {
                 return this._readFile(file)
             })
         )
+        if (results.length === 0) {
+            seriesFileLogger.warn(`No series found in ${this._folder}`)
+            throw new NotFoundException("No series found.")
+        }
+        return results
     }
 }

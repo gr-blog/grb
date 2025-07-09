@@ -1,5 +1,7 @@
 import { Cache } from "@nestjs/cache-manager"
+import { ASeq, aseq } from "doddle"
 import * as yaml from "js-yaml"
+import { match } from "minimatch"
 import { ZodType } from "zod"
 import { MyLoggerService } from "./logger.s.js"
 
@@ -16,7 +18,7 @@ export abstract class _DataService {
     }
     protected abstract _readText(path: string): Promise<string>
     protected abstract _readBinary(path: string): Promise<Buffer>
-    protected abstract _readDir(path: string): Promise<string[]>
+    protected abstract _readAll(): Promise<string[]>
     protected abstract _resolve(filePath: string): string
     async readText(_origPath: string): Promise<string> {
         const resolved = this._resolve(_origPath)
@@ -42,17 +44,25 @@ export abstract class _DataService {
         return fromCache
     }
 
-    async readDir(_origPath: string): Promise<string[]> {
-        const resolved = this._resolve(_origPath)
-        let fromCache = await this._cache.get<string[]>(resolved)
+    async readAll(): Promise<string[]> {
+        let fromCache = await this._cache.get<string[]>("all")
         if (!fromCache) {
-            const files = await this._readDir(resolved)
-            const fixed = files.map(file => file.replace(/\\/g, "/"))
-            await this._cache.set(resolved, fixed)
-            this._logger.debug(`Read directory ${_origPath} (${fixed.length})`)
+            const files = await this._readAll()
+            const fixed = files
+                .map(file => file.replace(/\\/g, "/"))
+                .map(file => file.replaceAll("./", ""))
+            await this._cache.set("all", fixed)
+            this._logger.debug(`Read directory recursively (${fixed.length})`)
             fromCache = fixed
         }
         return fromCache
+    }
+
+    glob(glob: string): ASeq<string> {
+        return aseq(async () => {
+            const all = await this.readAll()
+            return match(all, glob)
+        })
     }
 
     async readYaml<Z extends ZodType>(filePath: string, schema: Z): Promise<Z["_output"]> {

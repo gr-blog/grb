@@ -36,6 +36,9 @@ export const PostFile = z.object({
     hidden: z.boolean(),
     stats: z.lazy(() => PostStats),
     slug: Slug,
+    path: z.string(),
+    seriesName: Slug,
+    pos: z.number().int(),
     excerpt: z.string(),
     description: z.string(),
     headings: z.array(Heading),
@@ -43,13 +46,10 @@ export const PostFile = z.object({
 })
 
 export type PostFile = z.infer<typeof PostFile>
-export const Post = PostFile.extend({
-    series: Slug,
-    pos: z.number().int()
-})
+export const Post = PostFile
 export type Post = z.infer<typeof Post> & {
     stats: PostStats
-    series: Slug
+    seriesName: Slug
     pos: number
     headings: Heading[]
 }
