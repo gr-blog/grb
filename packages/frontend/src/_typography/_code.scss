@@ -9,6 +9,9 @@ $_bg-inline: #0d0d20;
     font-weight: 450;
     font-variant-ligatures: none;
     line-height: 1.35;
+    text-underline-position: under;
+    text-decoration-thickness: 5px;
+    text-underline-offset: 0.5px;
 }
 
 @mixin inline() {
