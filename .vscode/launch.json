@@ -13,7 +13,10 @@
       "program": "${workspaceFolder:api}/dist/main.js",
       "resolveSourceMapLocations": ["${workspaceFolder}/**"],
       "envFile": "${workspaceFolder:api}/.dev.env",
-      "runtimeArgs": ["--enable-source-maps", "--stack-trace-limit=1000"]
+      "env": {
+        "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
+      },
+      "runtimeArgs": []
     },
 
     {
@@ -28,7 +31,9 @@
       "program": "${workspaceFolder:bot}/dist/main.js",
       "resolveSourceMapLocations": ["${workspaceFolder}/**"],
       "envFile": "${workspaceFolder:bot}/.dev.env",
-      "runtimeArgs": ["--enable-source-maps", "--stack-trace-limit=1000"],
+      "env": {
+        "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
+      },
       "restart": true
     },
     {
@@ -49,7 +54,7 @@
       "console": "integratedTerminal",
       "env": {
         "ROARR_LOG": "true",
-        "NODE_OPTIONS": "--enable-source-maps"
+        "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
       },
       "restart": true
     },
@@ -63,7 +68,9 @@
       "autoAttachChildProcesses": true,
       "program": "${workspaceFolder:k8s}/dist/main.js",
       "resolveSourceMapLocations": ["${workspaceFolder}/**"],
-      "runtimeArgs": ["--enable-source-maps", "--stack-trace-limit=1000"],
+      "env": {
+        "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
+      },
       "restart": true
     }
   ],
