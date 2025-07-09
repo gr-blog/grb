@@ -3,7 +3,7 @@
   "compilerOptions": {
     "module": "Preserve",
     "moduleResolution": "Bundler",
-    "tsBuildInfoFile": "../../.tsbuildinfo/frontend.tsbuildinfo",
+    "tsBuildInfoFile": "./dist/frontend.tsbuildinfo",
     "paths": {
       "@/*": ["./src/*"]
     },
