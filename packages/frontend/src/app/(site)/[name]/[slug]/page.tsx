@@ -9,7 +9,7 @@ import type { Metadata } from "next"
 import { cookies, headers } from "next/headers"
 
 export default async function PostPage({ params: { slug } }: { params: { slug: string } }) {
-    if (slug.includes("map")) {
+    if (slug.includes(".map")) {
         return <div>404</div>
     }
     const cks = cookies()
@@ -59,7 +59,7 @@ export default async function PostPage({ params: { slug } }: { params: { slug: s
 }
 
 export async function generateMetadata({ params: { slug } }: { params: { slug: string } }) {
-    if (slug.includes("map")) {
+    if (slug.includes(".map")) {
         return {}
     }
     const api = getBlogApi(headers())

@@ -8,7 +8,7 @@ import { aseq } from "doddle"
 import type { Metadata } from "next"
 import { headers } from "next/headers"
 export default async function SeriesRoute({ params: { name } }: { params: { name: string } }) {
-    if (name.includes("map")) {
+    if (name.includes(".map")) {
         throw <div>404</div>
     }
     routerLogger.debug({ name }, "asked for series {name}")
@@ -52,7 +52,7 @@ export default async function SeriesRoute({ params: { name } }: { params: { name
 }
 
 export async function generateMetadata({ params: { name } }: { params: { name: string } }) {
-    if (name.includes("map")) {
+    if (name.includes(".map")) {
         return {}
     }
     const api = getBlogApi(headers())
