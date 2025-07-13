@@ -19,7 +19,7 @@ async function bootstrap() {
     await setTimeout(10 * 1000)
     const logger = app.get(MyLoggerService)
     const prewarmer = new Prewarmer(logger)
-    await prewarmer.prewarm().catch(err => {
+    await prewarmer.prewarmCycle().catch(err => {
         logger
             .child({
                 part: "prewarmer"

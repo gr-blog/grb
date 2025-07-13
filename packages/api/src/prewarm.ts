@@ -1,5 +1,6 @@
 import { LoggerService } from "@nestjs/common"
 import got from "got"
+import { setTimeout } from "timers/promises"
 
 export interface AnnouncePost {
     slug: string
@@ -40,6 +41,19 @@ export class Prewarmer {
     async prewarm(): Promise<void> {
         for (const blog of this.blogs) {
             await this._prewarmBlog(blog)
+        }
+    }
+
+    async prewarmCycle(): Promise<void> {
+        this.logger.log("Starting prewarm cycle...")
+        while (true) {
+            try {
+                await this.prewarm()
+                this.logger.log("Prewarm cycle completed successfully.")
+            } catch (error) {
+                this.logger.error("Error during prewarm cycle:", error)
+            }
+            await setTimeout(62 * 60 * 1000) // 1 hour
         }
     }
 }
