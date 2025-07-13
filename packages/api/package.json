@@ -36,6 +36,7 @@
     "doddle": "^6.0.0",
     "front-matter": "^4.0.2",
     "globby": "^14.1.0",
+    "got": "^14.4.7",
     "hast": "^1.0.0",
     "hast-util-heading-rank": "^3.0.0",
     "hastscript": "^9.0.0",

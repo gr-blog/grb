@@ -3124,6 +3124,7 @@ __metadata:
     doddle: "npm:^6.0.0"
     front-matter: "npm:^4.0.2"
     globby: "npm:^14.1.0"
+    got: "npm:^14.4.7"
     hast: "npm:^1.0.0"
     hast-util-heading-rank: "npm:^3.0.0"
     hastscript: "npm:^9.0.0"
