@@ -17,6 +17,7 @@
   "dependencies": {
     "@k8ts/instruments": "^0.5.2",
     "@k8ts/metadata": "^0.4.14",
+    "doddle": "^6.0.0",
     "k8ts": "^0.7.1"
   },
   "devDependencies": {

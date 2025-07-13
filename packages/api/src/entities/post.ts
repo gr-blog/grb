@@ -1,3 +1,4 @@
+import { createHash } from "crypto"
 import dayjs, { type Dayjs } from "dayjs"
 import { z } from "zod"
 import { zd } from "../zod/doddle/index.js"
@@ -29,20 +30,25 @@ export const PostFm = z.object({
 
 export type PostFm = z.output<typeof PostFm>
 
-export const PostFile = z.object({
+export const PostFingerprintInfo = z.object({
     title: z.string(),
     published: zDayjs,
     updated: zDayjs,
+    slug: Slug,
+    seriesName: Slug,
+    body: z.string()
+})
+export type PostFingerprintInfo = z.infer<typeof PostFingerprintInfo>
+export const PostFile = PostFingerprintInfo.extend({
     hidden: z.boolean(),
     stats: z.lazy(() => PostStats),
     slug: Slug,
     path: z.string(),
-    seriesName: Slug,
+    fingerprint: z.string(),
     pos: z.number().int(),
     excerpt: z.string(),
     description: z.string(),
-    headings: z.array(Heading),
-    body: z.string()
+    headings: z.array(Heading)
 })
 
 export type PostFile = z.infer<typeof PostFile>
@@ -55,3 +61,16 @@ export type Post = z.infer<typeof Post> & {
 }
 
 zd.setPathId(Post, (v, i) => v.slug)
+
+export function generateFingerprint(post: PostFingerprintInfo): string {
+    const parts = [
+        post.title,
+        post.published.unix(),
+        post.updated.unix(),
+        post.slug,
+        post.seriesName,
+        post.body
+    ].join("|")
+    const hash = createHash("sha256").update(parts).digest("hex")
+    return hash
+}

@@ -464,6 +464,7 @@ __metadata:
     "@types/ws": "npm:^8"
     "@typescript-eslint/eslint-plugin": "npm:^8.33.1"
     "@typescript-eslint/parser": "npm:^8.33.1"
+    doddle: "npm:^6.0.0"
     eslint: "npm:^8"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^16.1.0"
@@ -2418,6 +2419,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/minimatch@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@types/minimatch@npm:6.0.0"
+  dependencies:
+    minimatch: "npm:*"
+  checksum: 10c0/901fc4208cf6f5ab0e86bf86504055fb387f76092e06e604a3f2403db1c20e613c42104b235fde05552e0632d8f82e4ceacb83351d8700c7ffc5c31010a80804
+  languageName: node
+  linkType: hard
+
 "@types/ms@npm:*":
   version: 2.1.0
   resolution: "@types/ms@npm:2.1.0"
@@ -3104,13 +3114,14 @@ __metadata:
     "@types/lodash-es": "npm:^4.17.12"
     "@types/mdast": "npm:^3"
     "@types/mdx": "npm:^2.0.13"
+    "@types/minimatch": "npm:^6.0.0"
     "@types/node": "npm:^22.15.29"
     "@types/react": "npm:^18.3.10"
     "@types/react-dom": "npm:^18.3.0"
     cache-manager: "npm:^6.4.3"
     canva-embed-parser: "npm:^0.5.0"
     dayjs: "npm:^1.11.13"
-    doddle: "npm:^5.0.13"
+    doddle: "npm:^6.0.0"
     front-matter: "npm:^4.0.2"
     globby: "npm:^14.1.0"
     hast: "npm:^1.0.0"
@@ -3121,6 +3132,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     mdast-util-mdx: "npm:^3.0.0"
     mdx: "npm:^0.3.1"
+    minimatch: "npm:^10.0.3"
     nestjs-zod: "npm:^4.3.1"
     next-mdx-remote-client: "patch:next-mdx-remote-client@npm%3A2.1.2#~/.yarn/patches/next-mdx-remote-client-npm-2.1.2-7b31f75365.patch"
     nodemon: "npm:^3.1.10"
@@ -3353,7 +3365,7 @@ __metadata:
     "@types/qs": "npm:^6.14.0"
     chalk: "npm:^5.4.1"
     dayjs: "npm:^1.11.13"
-    doddle: "npm:^5.0.13"
+    doddle: "npm:^6.0.0"
     got: "npm:^14.4.7"
     lodash-es: "npm:^4.17.21"
     npm-run-all: "npm:^4.1.5"
@@ -3496,6 +3508,15 @@ __metadata:
   dependencies:
     keyv: "npm:^5.3.3"
   checksum: 10c0/eb5af37e2206cf01390bf61ddd86d3cb86f281700a2621393835ac4f9bdd5872a618765f643fce76d1cbb56f512a13cef502665fb6259be9c16d5121c713a1f7
+  languageName: node
+  linkType: hard
+
+"cache-manager@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "cache-manager@npm:7.0.1"
+  dependencies:
+    keyv: "npm:^5.3.4"
+  checksum: 10c0/c4d3cf1b9c6cc7f9a046053a1797edea1a34b5fc545f889d31994133d95953a6100e6163b34a1caa0a4754f08cdaafaebddc718c46c84f3ba1b205450473aace
   languageName: node
   linkType: hard
 
@@ -4415,10 +4436,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"doddle@npm:^5.0.13, doddle@npm:^5.2.0":
+"doddle@npm:^5.2.0":
   version: 5.2.0
   resolution: "doddle@npm:5.2.0"
   checksum: 10c0/99ae4c5d4bc77a9d257d29e6ffcf27f428c6c24aef91941ebd607935e025fda20b405e655a03173776c5d35a16723d8a22f2da85e3c5abdae3a5ac8714a44d4e
+  languageName: node
+  linkType: hard
+
+"doddle@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "doddle@npm:6.0.0"
+  checksum: 10c0/3fe885ffc70af3efb59e10e1db283c3439bac89c01999446db519370030f8d728691253f87eed7827f7a4b6d32fbe3929d9d168d137b5f1bb47456bfa7cab296
   languageName: node
   linkType: hard
 
@@ -5640,8 +5668,9 @@ __metadata:
     "@types/rss": "npm:^0.0.32"
     "@vercel/og": "npm:^0.6.3"
     boxicons: "npm:^2.1.4"
+    cache-manager: "npm:^7.0.1"
     dayjs: "npm:^1.11.13"
-    doddle: "npm:^5.0.13"
+    doddle: "npm:^6.0.0"
     js-yaml: "npm:^4.1.0"
     next: "npm:14.2.7"
     next-mdx-remote-client: "patch:next-mdx-remote-client@npm%3A2.1.2#~/.yarn/patches/next-mdx-remote-client-npm-2.1.2-7b31f75365.patch"
@@ -7155,6 +7184,7 @@ __metadata:
     "@k8ts/instruments": "npm:^0.5.2"
     "@k8ts/metadata": "npm:^0.4.14"
     "@types/node": "npm:^22.15.29"
+    doddle: "npm:^6.0.0"
     k8ts: "npm:^0.7.1"
     npm-run-all: "npm:^4.1.5"
     tsx: "npm:^4.19.4"
@@ -7208,7 +7238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keyv@npm:^5.3.3":
+"keyv@npm:^5.3.3, keyv@npm:^5.3.4":
   version: 5.3.4
   resolution: "keyv@npm:5.3.4"
   dependencies:
@@ -8232,7 +8262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^10.0.0, minimatch@npm:^10.0.3":
+"minimatch@npm:*, minimatch@npm:^10.0.0, minimatch@npm:^10.0.3":
   version: 10.0.3
   resolution: "minimatch@npm:10.0.3"
   dependencies:

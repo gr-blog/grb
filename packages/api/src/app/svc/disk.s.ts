@@ -24,13 +24,18 @@ export class DiskService extends _DataService {
         super(_logger, _cache)
     }
 
+    private get _blogSubpath(): string {
+        const tld = this._blog.split(".").at(-1)
+        return `${tld}/${this._blog}`
+    }
+
     protected _resolve(filePath: string): string {
-        const x = `${this._baseDir.path}/${this._blog}/${filePath}`
+        const x = `${this._baseDir.path}/${this._blogSubpath}/${filePath}`
         return x
     }
 
     protected _unresolve(filePath: string): string {
-        const x = filePath.replace(`${this._baseDir.path}/${this._blog}/`, "")
+        const x = filePath.replace(`${this._baseDir.path}/${this._blogSubpath}/`, "")
         return x
     }
 

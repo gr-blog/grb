@@ -42,5 +42,8 @@
     "typescript": "^5.8.3"
   },
   "packageManager": "yarn@4.9.2",
-  "sourcesRoot": "src"
+  "sourcesRoot": "src",
+  "dependencies": {
+    "doddle": "^6.0.0"
+  }
 }

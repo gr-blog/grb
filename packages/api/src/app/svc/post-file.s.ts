@@ -4,7 +4,7 @@ import { aseq } from "doddle"
 import fm from "front-matter"
 import { pick } from "lodash-es"
 import path, { basename } from "path"
-import { Post, PostFile, PostFm } from "../../entities/post.js"
+import { generateFingerprint, Post, PostFile, PostFm } from "../../entities/post.js"
 import { createInternalLinkParser } from "../../markdown/parsing/preprocess-interlinks.js"
 import { processMarkdownContents } from "../../markdown/parsing/process-markdown.js"
 import { PrefixedCache } from "../dec/prefixed-cache.js"
@@ -86,10 +86,18 @@ export class PostFileService {
         }
         const { seriesName, slug, pos } = this._decomposePath(filePath)
         this._logger.log(`Processed post file ${filePath} (${body.length})  `, {})
-        const r = PostFile.check({
-            body: body,
-            path: filePath,
+        const forFingerprint = {
+            title: frontmatter.title,
+            published: frontmatter.published,
+            updated: frontmatter.updated,
+            slug: slug,
             seriesName: seriesName,
+            body: body
+        }
+        const r = PostFile.check({
+            ...forFingerprint,
+            fingerprint: generateFingerprint(forFingerprint),
+            path: filePath,
             pos: pos,
             title: frontmatter.title,
             hidden: frontmatter.hidden,
@@ -118,6 +126,14 @@ export class PostFileService {
 
     private _getPathFromSlug(slug: string) {
         return this._diskService.glob(`posts/*/*/${slug}.post.md`).first().pull()
+    }
+
+    getBySeries(seriesName: string) {
+        return this._listPaths()
+            .filter(x => x.startsWith(`posts/${seriesName}/`))
+            .map(x => this._readPostFile(x))
+            .toArray()
+            .pull()
     }
 
     list() {

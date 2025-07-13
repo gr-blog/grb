@@ -2,6 +2,7 @@ import { GRB_API } from "@/api"
 import { MdxContent } from "@/entities/dto/mdx"
 import { runSync } from "next-mdx-remote-client/run"
 import NextImage from "next/image"
+import { setTimeout } from "timers/promises"
 import { z } from "zod"
 import "./prose.scss"
 export const ProseProps = z.object({
@@ -19,6 +20,7 @@ export async function evaluate({
     options?: Record<string, unknown>
     components?: Record<string, any>
 }) {
+    await setTimeout(50)
     compiledSource = compiledSource.replaceAll("####GRB_API####", GRB_API)
     // This check is necessary otherwise "await" expression in the compiledSource throws a syntax error
     const { Content, mod } = runSync(compiledSource, {

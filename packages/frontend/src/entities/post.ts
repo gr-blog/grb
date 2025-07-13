@@ -26,7 +26,10 @@ export const PostFm = z.object({
 
 export type PostFm = z.output<typeof PostFm>
 
+export const hexString = z.string().regex(/^[0-9a-f]+$/i, "Must be a hex string")
+
 export const PostFile = z.object({
+    fingerprint: hexString,
     title: z.string(),
     published: zDayjsLike,
     updated: zDayjsLike,
@@ -34,19 +37,14 @@ export const PostFile = z.object({
     stats: z.lazy(() => PostStats),
     slug: Slug,
     excerpt: z.string(),
-    seriesName: z.string(),
+    seriesName: Slug,
     pos: z.number().int(),
-    headings: z.array(Heading),
+    headings: z.array(z.lazy(() => Heading)),
     description: z.string()
 })
 
 export type PostFile = z.infer<typeof PostFile>
 export const Post = PostFile
-export type Post = z.output<typeof Post> & {
-    stats: PostStats
-    series: Slug
-    pos: number
-    headings: Heading[]
-}
+export type Post = z.output<typeof Post>
 
 zd.setPathId(Post, (v, i) => v.slug)

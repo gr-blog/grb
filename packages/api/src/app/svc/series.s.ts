@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common"
+import { Injectable, NotFoundException } from "@nestjs/common"
 import { aseq, seq } from "doddle"
 import { Series, SeriesFile } from "../../entities/series.js"
 import { PrefixedCache } from "../dec/prefixed-cache.js"
@@ -17,19 +17,10 @@ export class SeriesService {
     ) {}
 
     private async _fillSeriesData(rawSeries: SeriesFile) {
-        const posts = await Promise.all(
-            rawSeries.posts.map(postSlug =>
-                this._postFileService.get(postSlug).catch(err => {
-                    if (err instanceof FileNotFoundError) {
-                        const e = new InternalServerErrorException(
-                            `Post "${postSlug}" in series "${rawSeries.slug}" not found.`
-                        )
-                        throw e
-                    }
-                    throw err // Re-throw other errors
-                })
-            )
-        )
+        const posts = await aseq(() => this._postFileService.getBySeries(rawSeries.slug))
+            .toArray()
+            .pull()
+
         const postCount = posts.length
         const lastUpdatedTime = seq(posts)
             .map(p => p.updated)
@@ -48,6 +39,7 @@ export class SeriesService {
 
         return Series.check({
             ...rawSeries,
+            posts: posts.map(p => p.slug) as readonly string[],
             count: postCount,
             updatedTime: lastUpdatedTime,
             lastNewPost: lastNewPostTime,
@@ -73,29 +65,5 @@ export class SeriesService {
             const allFiles = await this._seriesFileService.readAll()
             return allFiles.map(rawSeries => rawSeries.slug)
         })
-    }
-    async getByPost(postSlug: string): Promise<readonly [Series, number]> {
-        let fromCache = await this._cache.get<readonly [Series, number]>(postSlug)
-        if (!fromCache) {
-            const x = await this.list()
-                .map(async sName => {
-                    const series = await this.get(sName)
-                    const postIndex = series.posts.findIndex(post => post === postSlug)
-                    if (postIndex !== -1) {
-                        return [series, postIndex] as const
-                    }
-                    return false
-                })
-                .first(x => !!x)
-                .pull()
-
-            if (!x) {
-                this._logger.error(`Post "${postSlug}" not found in any series.`)
-                throw new Error(`Post "${postSlug}" not found in any series.`)
-            }
-            await this._cache.set(postSlug, x)
-            fromCache = x
-        }
-        return fromCache!
     }
 }

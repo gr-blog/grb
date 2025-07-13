@@ -12,11 +12,11 @@ export const SeriesFile = z.object({
         .string()
         .regex(/^#[0-9a-fA-F]{6}$/)
         .readonly(),
-    slug: Slug,
-    posts: z.array(Slug)
+    slug: Slug
 })
 export type SeriesFile = z.infer<typeof SeriesFile>
 export const Series = SeriesFile.extend({
+    posts: z.array(Slug).readonly(),
     count: z.number(),
     updatedTime: zDayjs.optional(),
     lastNewPost: zDayjs.optional(),
@@ -24,6 +24,7 @@ export const Series = SeriesFile.extend({
 }) as ZodType<Series>
 export type Series = SeriesFile & {
     count: number
+    posts: readonly Slug[]
     updatedTime?: Dayjs
     lastNewPost?: Dayjs
     firstPostTime?: Dayjs

@@ -23,7 +23,8 @@ export class PostService {
                 if (!series) {
                     throw new NotFoundException(`Series "${options.series}" not found.`)
                 }
-                return series.posts.map(p => this.get(p))
+                const posts = await this._postFileService.getBySeries(options.series)
+                return posts.map(p => this.get(p.slug))
             }
             const posts = this._postFileService.list().map(x => this.get(x.slug))
             return posts

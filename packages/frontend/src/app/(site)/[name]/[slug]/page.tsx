@@ -4,6 +4,7 @@ import { titleParts } from "@/app/(site)/title-formatter"
 import { NewsletterSub } from "@/parts/newsletter-form/helpers"
 import PostBody from "@/parts/post-page/post-body"
 import Prose from "@/parts/prose/prose"
+import { postFingerprintCache } from "@/post-cache"
 import { seq } from "doddle"
 import type { Metadata } from "next"
 import { cookies, headers } from "next/headers"
@@ -44,7 +45,11 @@ export default async function PostPage({ params: { slug } }: { params: { slug: s
         .concat(beforePosts)
         .concat([post])
     const alsoPosts = latest.filter(x => excludedPosts.every(y => y.slug !== x.slug))
-    return (
+    let cached = await postFingerprintCache.get("full", post)
+    if (cached) {
+        return cached
+    }
+    cached = (
         <PostBody
             post={post}
             allSeries={seq(allSeries.values())}
@@ -56,6 +61,8 @@ export default async function PostPage({ params: { slug } }: { params: { slug: s
             <Prose content={post.body} cacheKey={`post:${post.slug}`} slug={post.slug} />
         </PostBody>
     )
+    await postFingerprintCache.set("full", post, cached)
+    return cached
 }
 
 export async function generateMetadata({ params: { slug } }: { params: { slug: string } }) {

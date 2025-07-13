@@ -4,6 +4,7 @@ import { PostStats } from "../../entities/stats.js"
 import { cutAtFirstRule } from "./cut-at-first-rule.js"
 import { extractTocFromMarkdown } from "./extract-toc.js"
 import { ofmFootnotes } from "./ofmFootnotes.js"
+import { removeEslintComments } from "./remove-eslint-comments.js"
 export function calcPostStats(text: string) {
     const words = text.split(/\s+/).length
     const readTime = Math.ceil(words / 200)
@@ -25,6 +26,7 @@ export const processMarkdownContents = z
     .args(z.string())
     .implement(markdown => {
         markdown = ofmFootnotes(markdown)
+        markdown = removeEslintComments(markdown)
         const toc = extractTocFromMarkdown(markdown)
         const cut = cutAtFirstRule(markdown)
         if (typeof cut === "string") {
