@@ -27,6 +27,7 @@ export default zr.checked(
     }: PostPreviewListProps) {
         const itemPostStack = itemPosts
             .filter(post => previewedPosts.every(x => x.slug !== post.slug))
+            .take(6)
             .share()
         const postItemGrids = itemPostStack
             .chunk(chunkSize)

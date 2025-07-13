@@ -44,7 +44,7 @@ export default async function PostPage({ params: { slug } }: { params: { slug: s
         .concat(nextPosts.map(x => x))
         .concat(beforePosts)
         .concat([post])
-    const alsoPosts = latest.filter(x => excludedPosts.every(y => y.slug !== x.slug))
+    const alsoPosts = latest.filter(x => excludedPosts.every(y => y.slug !== x.slug)).take(6)
     let cached = await postFingerprintCache.get("full", post)
     if (cached) {
         return cached
