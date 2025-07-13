@@ -12,6 +12,7 @@ export class SeriesController {
         return this._seriesService
             .list()
             .map(s => this._seriesService.get(s))
+            .filter(s => s.count > 0)
             .toArray()
             .pull()
     }

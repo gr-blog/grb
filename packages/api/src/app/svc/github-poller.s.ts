@@ -63,8 +63,9 @@ export class GithubPollerService {
                             newSha: x.sha
                         }
                     )
-                    await this._cache.clear()
-                })
+                }),
+
+                mergeMap(() => this._cache.clear())
             )
             .subscribe()
 

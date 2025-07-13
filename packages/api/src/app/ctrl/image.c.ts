@@ -12,7 +12,6 @@ export class ImageController {
         @Param("key") key: string,
         @Query("format") format: string
     ): Promise<StreamableFile> {
-        const a = 1
         const { data, type } = await this._imageService.get({ post, key, format })
         return new StreamableFile(data, { type, disposition: "inline" })
     }

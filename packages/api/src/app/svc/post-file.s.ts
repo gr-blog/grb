@@ -1,5 +1,6 @@
 import { CACHE_MANAGER } from "@nestjs/cache-manager"
 import { Inject, Injectable, NotFoundException, Scope } from "@nestjs/common"
+import dayjs from "dayjs"
 import { aseq } from "doddle"
 import fm from "front-matter"
 import { pick } from "lodash-es"
@@ -129,14 +130,17 @@ export class PostFileService {
     }
 
     getBySeries(seriesName: string) {
+        const now = dayjs()
         return this._listPaths()
             .filter(x => x.startsWith(`posts/${seriesName}/`))
             .map(x => this._readPostFile(x))
+            .filter(x => x.published.isBefore(now) || x.published.isSame(now, "day"))
             .toArray()
             .pull()
     }
 
     list() {
+        const now = dayjs()
         return aseq(async () => {
             const files = await this._listPaths().toArray().pull()
 
@@ -149,6 +153,7 @@ export class PostFileService {
         })
             .filter(x => !!x)
             .map(x => x!)
+            .filter(x => x.published.isBefore(now))
     }
     async get(slug: string): Promise<Post> {
         return this.list()
