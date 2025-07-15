@@ -1,18 +1,26 @@
-@use "./prose" as prose;
+@import "../_styles/index.scss";
 
 @mixin _math-common() {
-    mo {
-        min-width: 20px;
-        display: inline-block;
-    }
     &:has(annotation[data-style="hidden"]) {
         height: 0px;
         overflow: hidden;
         padding: 0 !important;
-        @include prose.para-para;
     }
 }
+@mixin block-container() {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 @mixin math-block() {
+    mo,
+    mfrac,
+    mtext {
+        @include padding-lr(0.1em);
+    }
     display: block;
     padding-top: 1em;
     padding-bottom: 1em;

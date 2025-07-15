@@ -35,6 +35,9 @@
     math:not([display="block"]) {
         @include math.math-inline;
     }
+    .katex:has(math[display="block"]) {
+        @include math.block-container;
+    }
 
     font-size: var(--font-size-readable);
     p {
