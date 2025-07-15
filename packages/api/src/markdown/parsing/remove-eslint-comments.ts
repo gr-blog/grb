@@ -16,7 +16,6 @@ const regex = doddle(() => {
         .join("|")
         .map(x => new RegExp(x, "gm"))
         .pull()
-    console.log(alternatives)
     return alternatives
 })
 export function removeEslintComments(markdown: string): string {

@@ -72,6 +72,9 @@ export class PostFileService {
     }
 
     private async _readPostFile(filePath: string): Promise<PostFile> {
+        const logger = this._logger.child({
+            filePath: filePath
+        })
         filePath = this._fixPath(filePath)
         let cached = await this._cache.get<PostFile>(filePath)
         if (cached) {
@@ -83,10 +86,10 @@ export class PostFileService {
         let { body, excerpt, stats, toc } = processMarkdownContents(content)
         body = await iLinkParser.parse(body).value
         if (!excerpt) {
-            this._logger.error("Body doesn't have a rule separator, which is required for excerpt!")
+            logger.error("Body doesn't have a rule separator, which is required for excerpt!")
         }
         const { seriesName, slug, pos } = this._decomposePath(filePath)
-        this._logger.log(`Processed post file ${filePath} (${body.length})  `, {})
+        logger.log(`Processed post file ${filePath} (${body.length})  `, {})
         const forFingerprint = {
             title: frontmatter.title,
             published: frontmatter.published,

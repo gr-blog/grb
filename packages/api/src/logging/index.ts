@@ -4,7 +4,7 @@ import { print } from "./printer.js"
 
 const myPrint = winston.format.printf(info => print(info as any))
 const logger = winston.createLogger({
-    level: "silly",
+    level: process.env.LOG_LEVEL || "silly",
     transports: [
         new winston.transports.Console(),
         new winston.transports.File({

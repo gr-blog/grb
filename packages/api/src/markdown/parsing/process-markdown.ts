@@ -1,7 +1,7 @@
 import { Heading } from "remark-extract-toc"
 import { z } from "zod"
 import { PostStats } from "../../entities/stats.js"
-import { cutAtFirstRule } from "./cut-at-first-rule.js"
+import { cutAtFirstRule } from "./cut-description.js"
 import { extractTocFromMarkdown } from "./extract-toc.js"
 import { ofmFootnotes } from "./ofmFootnotes.js"
 import { removeEslintComments } from "./remove-eslint-comments.js"
@@ -33,7 +33,7 @@ export const processMarkdownContents = z
             var body = cut
             var excerpt = ""
         } else {
-            var body = [cut.before, cut.after].join("\n\n")
+            var body = cut.after
             var excerpt = cut.before
         }
         const stats = calcPostStats(markdown)

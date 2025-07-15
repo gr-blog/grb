@@ -23,7 +23,7 @@ export class MdxCompilerService {
 
     async compile(prefix: string, name: string, source: string) {
         const key = `${prefix}:${name}`
-        const cached = await this._cache.get<string>(key)
+        let cached = await this._cache.get<string>(key)
         if (!cached) {
             this._logger.verbose(`Rendering MDX ${key} (${source.length})`)
             const compiled = await compileMdx(
@@ -36,9 +36,9 @@ export class MdxCompilerService {
                 })
             )
             this._logger.debug(`Compiled MDX ${key} [${compiled.compiledSource.length}]`)
-            const compiledSource = compiled.compiledSource as string
-            await this._cache.set(key, compiledSource)
+            cached = compiled.compiledSource as string
+            await this._cache.set(key, cached)
         }
-        return (await this._cache.get(key)) as string
+        return cached
     }
 }
