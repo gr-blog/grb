@@ -15,9 +15,15 @@
     }
     &__made {
         display: block;
-        position: absolute;
-        right: 20px;
-        bottom: 15px;
+        @include is-large-or-small {
+            position: absolute;
+            right: 20px;
+            bottom: 15px;
+        }
+        @include is-mobile {
+            position: static;
+        }
+
         font-size: var(--font-size-made-with);
         color: var(--fg-series-tagline);
     }
