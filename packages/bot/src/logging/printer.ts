@@ -85,7 +85,12 @@ export function print(obj: LogInfo) {
     delete obj.part
     delete obj.timestamp
     const levelEmoji = getLevelEmoji(logLevel)
-
+    for (const key of Object.keys(obj)) {
+        const o = obj as any
+        if (dayjs.isDayjs(o[key])) {
+            o[key] = dayjs(o[key]).format("YYYY-MM-DD HH:mm:ss")
+        }
+    }
     const myChalk = levelChalkFormatter(logLevel)
     const firstLine = myChalk.bold(myChalk(`${dt} ${levelEmoji} [${part}] ${obj.message}`))
     delete obj.message

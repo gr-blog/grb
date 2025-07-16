@@ -57,7 +57,7 @@ ${b(link(post.series.title, post.series.url))} ➤ ${b(link(post.title, post.url
         )
         return {
             title: `🆕 ${post.title}`,
-            description: `${firstLine}\n\n${post.description}`,
+            description: `${firstLine}\n${post.description}`,
             color: parseInt(post.series.color.replace("#", "0x"), 16),
             image: {
                 url: post.cover

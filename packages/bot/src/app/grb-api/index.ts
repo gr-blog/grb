@@ -69,7 +69,7 @@ export class BlogApi {
         return aseq(async () => {
             const allSeries = await this.allSeries.pull()
             return posts.map(post => {
-                const postSeries = allSeries.get(post.series)
+                const postSeries = allSeries.get(post.seriesName)
                 return {
                     ...post,
                     series: postSeries!

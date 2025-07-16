@@ -12,7 +12,7 @@ export const Post = z.object({
     stats: z.lazy(() => PostStats),
     slug: Slug,
     description: z.string(),
-    series: Slug,
+    seriesName: Slug,
     pos: z.number().int()
 })
 
