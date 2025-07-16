@@ -39,17 +39,24 @@ export default async function PostPage({ params: { slug } }: { params: { slug: s
     postsInSeries = postsInSeries.filter(x => x.slug !== post.slug).orderBy(x => x.pos)
     const position = post.pos
     const beforePosts = postsInSeries.take(position).take(-2).reverse()
-    const nextPosts = postsInSeries.skip(position).take(2)
+    const nextPosts = postsInSeries.skip(position).take(1)
     const excludedPosts = beforePosts
         .concat(nextPosts.map(x => x))
         .concat(beforePosts)
         .concat([post])
+        .take(2)
     const alsoPosts = latest.filter(x => excludedPosts.every(y => y.slug !== x.slug)).take(6)
-    let cached = await postFingerprintCache.get("full", post)
-    if (cached) {
-        return cached
-    }
-    cached = (
+
+    let cachedProse = await postFingerprintCache.get("full", post)
+    let isCached = !!cachedProse
+    cachedProse = cachedProse ?? (
+        <Prose
+            content={post.body}
+            cacheKey={`post:${post.slug}:${post.fingerprint}`}
+            slug={post.slug}
+        />
+    )
+    const postBody = (
         <PostBody
             post={post}
             allSeries={seq(allSeries.values())}
@@ -58,11 +65,14 @@ export default async function PostPage({ params: { slug } }: { params: { slug: s
             alsoPosts={alsoPosts}
             isNewsletterSubscribed={Subbed.isSubscribed}
         >
-            <Prose content={post.body} cacheKey={`post:${post.slug}`} slug={post.slug} />
+            {cachedProse}
         </PostBody>
     )
-    await postFingerprintCache.set("full", post, cached)
-    return cached
+    if (!isCached) {
+        await postFingerprintCache.set("full", post, cachedProse)
+    }
+
+    return postBody
 }
 
 export async function generateMetadata({ params: { slug } }: { params: { slug: string } }) {

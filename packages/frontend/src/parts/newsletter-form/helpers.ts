@@ -1,4 +1,4 @@
-const subCookieName = "newsletter-subscribed2"
+const subCookieName = "newsletter-subscribed"
 export class NewsletterSub {
     constructor(
         readonly cookies: {
@@ -11,6 +11,6 @@ export class NewsletterSub {
     }
 
     set isSubscribed(value: boolean) {
-        this.cookies.set(subCookieName, `${value}`, { maxAge: 31536000 }) // 1 year
+        this.cookies.set(subCookieName, `${value}`, { maxAge: 31536000, path: "/" }) // 1 year
     }
 }
