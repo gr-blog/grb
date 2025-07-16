@@ -13,7 +13,15 @@ export function daysLine(date: Dayjs) {
             return "today"
         case 1:
             return "yesterday"
-        default:
-            return `${diff} days ago`
     }
+    if (diff < 7) {
+        return `${diff} days ago`
+    }
+    if (diff < 30) {
+        return `${Math.floor(diff / 7)} weeks ago`
+    }
+    if (diff < 365) {
+        return `${Math.floor(diff / 30)} months ago`
+    }
+    return `${Math.floor(diff / 365)} years ago`
 }

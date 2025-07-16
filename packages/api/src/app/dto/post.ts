@@ -1,6 +1,7 @@
 import { createZodDto } from "nestjs-zod"
 import z from "zod"
 import { Post } from "../../entities/post.js"
+import { zDayjsLike } from "../../entities/vals.js"
 import { MdxContent } from "./mdx.js"
 
 const PostBareDto = Post.omit({
@@ -24,6 +25,8 @@ export const PostFullDto = PostBareDto.extend({
 export const PostSearchOptions = z.object({
     series: z.string().optional(),
     offset: z.number().optional(),
+    before: zDayjsLike.optional(),
+    after: zDayjsLike.optional(),
     limit: z
         .string()
         .default("100")

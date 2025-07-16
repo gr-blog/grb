@@ -28,8 +28,8 @@ export default function ThankYouBody() {
                 be free for everyone and forever.
             </Text>
             <Text style={textCss}>
-                In the future, I will tackle complex topics in TypeScript and the web platform, and
-                venture into distributed systems, type systems, and API design.
+                Look forward to posts tackling a wide range of advanced topics, from TypeScript and
+                the web platform to distributed systems and API design.
             </Text>
             <Text style={lowerTextCss}>
                 Feel free to drop by <a href={discordInviteLinks.lounge}>the Discord</a> if you're

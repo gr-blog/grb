@@ -15,9 +15,13 @@ export type PostPageNavMenuProps = z.infer<typeof PostPageNavMenuProps>
 export default zr.checked(
     PostPageNavMenuProps,
     function PostPageNavMenu({ allSeries, beforePosts }: PostPageNavMenuProps) {
+        const relatedPart =
+            beforePosts.count().pull() > 0 ? (
+                <h2 className="post-page__before__header nav-header">Related</h2>
+            ) : null
         return (
             <>
-                <h2 className="post-page__before__header nav-header">Related</h2>{" "}
+                {relatedPart}
                 <PostItemGrid className="post-page__before" posts={beforePosts} columns={1} />
                 <h2 className="post-page__series__header nav-header">Series</h2>{" "}
                 <nav className="list-page__series">

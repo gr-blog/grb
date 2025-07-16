@@ -2,6 +2,7 @@ import { CACHE_MANAGER } from "@nestjs/cache-manager"
 import { Inject, Injectable } from "@nestjs/common"
 import { Octokit } from "@octokit/rest"
 import dayjs from "dayjs"
+import got from "got"
 import {
     catchError,
     distinctUntilChanged,
@@ -65,7 +66,15 @@ export class GithubPollerService {
                     )
                 }),
 
-                mergeMap(() => this._cache.clear())
+                mergeMap(async () => {
+                    await this._cache.clear()
+                    await got(`${process.env.BOT_API}/announce`).catch(err => {
+                        this._logger.error("Failed API call to announcer", {
+                            error: err.message,
+                            stack: err.stack
+                        })
+                    })
+                })
             )
             .subscribe()
 

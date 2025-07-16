@@ -1,5 +1,4 @@
 import { NestFactory } from "@nestjs/core"
-import { setTimeout } from "timers/promises"
 import { AppModule } from "./app/app.m.js"
 import { AnnounceController } from "./app/ctrl/index.js"
 import { MyLoggerService } from "./app/logger.s.js"
@@ -15,10 +14,8 @@ async function main() {
         bufferLogs: false
     })
     await app.listen(3002)
-
-    await setTimeout(5000)
     const advertDb = app.get(AnnounceController)
-    await advertDb.announce("manual")
+    await advertDb.announceCycle()
 }
 main().catch(err => {
     mainLogger.error("Failed to start discord blog announcer", {

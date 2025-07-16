@@ -8,8 +8,8 @@
         box-sizing: border-box;
         @include spacing-none;
     }
-    height: 7rem;
     margin-top: 3rem;
+    margin-bottom: 3rem;
     @include main-column-layout;
 
     &__contents {
@@ -46,25 +46,20 @@
         @include spacing-none;
         color: var(--fg-newsletter-text);
         font-size: var(--font-size-readable);
-        margin-bottom: 0;
     }
     &__form {
-        height: 3rem;
+        height: 45px;
         display: grid;
-        width: 55%;
         grid-template-areas: "input submit";
         grid-template-columns: 7fr auto;
-        column-gap: 0.5rem;
+        column-gap: 10px;
         margin-top: 0;
-        padding-top: 0;
-        margin-top: 0.5rem;
+        padding-top: 10px;
     }
 
     &__email {
         @include form-controls;
         grid-area: input;
-        padding: 0.3rem;
-
         @include padding-lr(0.8rem);
         color: var(--fg-text);
         background: var(--bg-page-header);
@@ -87,7 +82,7 @@
         justify-content: center;
         background: var(--fg-newsletter-heading);
         border-radius: 0.4rem;
-        min-width: 1rem;
+        min-width: 3rem;
         color: var(--fg-text);
         font-size: var(--font-size-readable);
         padding: 0.3rem;

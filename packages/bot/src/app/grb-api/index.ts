@@ -78,11 +78,12 @@ export class BlogApi {
         })
     }
 
-    getPosts(count: number): ASeq<PostDtoWithSeries> {
+    getPosts({ count, after }: { count: number; after?: number }): ASeq<PostDtoWithSeries> {
         return aseq(async () => {
             const stringified = qs.stringify({
                 format: "announce",
-                limit: count
+                limit: count,
+                after
             })
 
             const res = await apiRequest(`${URL_GRB_API}/${this._blog}/posts?${stringified}`)

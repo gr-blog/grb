@@ -1,3 +1,3 @@
-export function isRaffleHit(odds: number = 2) {
+export function isRaffleHit(odds: number = 3) {
     return Math.random() <= 1 / odds
 }

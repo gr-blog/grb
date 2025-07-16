@@ -1,5 +1,6 @@
 import { type BlogApi } from "@/api"
 import type { PostListingDtoWithSeries } from "@/entities/dto/post"
+import { formatWords, mins } from "@/entities/stats"
 import { Heading, Section, Text } from "@react-email/components"
 import type { Seq } from "doddle"
 import type { CSSProperties } from "react"
@@ -18,14 +19,15 @@ const noSpacing: CSSProperties = {
 }
 function DigestEntry({ post, api }: DigestEntryProps) {
     return (
-        <Section style={{ marginTop: "20px" }}>
+        <Section style={{ marginTop: "20px", marginBottom: "20px" }}>
             <a href={api.urls.post(post.series.slug, post.slug)}>
                 <Heading as="h2" style={{ ...noSpacing }}>
                     {post.title}
                 </Heading>
             </a>
             <Text style={{ ...noSpacing, marginBottom: "12px" }}>
-                ⮞ {post.series.title} • {post.stats.words} words • {post.stats.readTime} mins
+                {post.series.title} • {post.published.format("MMMM D, YYYY")} •{" "}
+                {formatWords(post.stats.words)} • {mins(post.stats.readTime)}
             </Text>
             <Text style={noSpacing}>{post.description}</Text>
             <Text style={{ ...noSpacing, marginTop: "12px" }}>
@@ -44,7 +46,7 @@ export default async function DigestBody({ posts, api }: DigestBodyProps) {
     return (
         <>
             <Heading style={{ fontSize: 35, textAlign: "center" }} as="h1">
-                This week's posts at gregros.dev
+                This week at gregros.dev
             </Heading>
             <Text></Text>
             {digestEntries}

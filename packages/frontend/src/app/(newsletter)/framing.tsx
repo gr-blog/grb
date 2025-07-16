@@ -3,8 +3,8 @@ import {
     Body,
     Column,
     Container,
-    Font,
     Head,
+    Hr,
     Html,
     Img,
     Link,
@@ -23,26 +23,25 @@ export function Framing({ children, api }: FramingOptions) {
         <Html
             lang="en"
             style={{
-                background: "#FFDEDEFF"
+                background: "#FFFFFF"
             }}
         >
             <Head></Head>
             <Body style={{ margin: 0, padding: 0 }}>
-                <Font
-                    fontFamily="FiraSans"
-                    fallbackFontFamily="Arial"
-                    webFont={{
-                        // Absolute URL to the self-hosted file Next exported
-                        url: `${api.realOrigin}/FiraSans-Regular.ttf`,
-                        format: "truetype"
-                    }}
-                />
                 <Container>
                     <Section>{children}</Section>
+                    <Hr />
                     <Section>
                         <Row>
                             <Column style={{ fontSize: "24px" }}>
-                                <Img src={`${api.realOrigin}/signature.png`} width={128} />
+                                <Img
+                                    src={`${api.realOrigin}/signature.png`}
+                                    width={128}
+                                    style={{
+                                        width: "7.5rem",
+                                        height: "auto"
+                                    }}
+                                />
                             </Column>
                             <Column width={"35%"} style={{ fontSize: "14px" }}>
                                 <Text style={{ margin: 0, padding: 0, marginBottom: 4 }}>

@@ -1,4 +1,4 @@
-import { PostStatsDated } from "@/entities/stats"
+import { mins, PostStatsDated } from "@/entities/stats"
 import { daysLine } from "@/utils"
 import { zr } from "@/zod/react"
 import "./stats-short.scss"
@@ -12,7 +12,7 @@ export default zr.checked(
                 <li className="post-stats-short__date">
                     <time dateTime={published.toISOString()}>{daysAgo}</time>
                 </li>
-                <li className="post-stats-short__read-time">{readTime} mins</li>
+                <li className="post-stats-short__read-time">{mins(readTime)}</li>
             </ul>
         )
     }

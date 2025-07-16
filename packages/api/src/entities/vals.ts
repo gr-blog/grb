@@ -8,6 +8,15 @@ export const zDayjs = z.custom<Dayjs>(x => {
     }
     return r
 }, {})
+export const zDayjsLike = zDayjs.or(
+    z
+        .string()
+        .or(z.number())
+        .transform(v => dayjs(v))
+        .refine(x => {
+            return dayjs.isDayjs(x) && x.isValid()
+        })
+)
 
 export const Slug = z.string().regex(/^[a-z_0-9-]+$/)
 export type Slug = z.infer<typeof Slug>

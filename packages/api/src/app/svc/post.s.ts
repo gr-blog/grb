@@ -32,6 +32,8 @@ export class PostService {
             return posts
         })
             .filter(x => x.published.isBefore(now) || x.published.isSame(now, "day"))
+            .filter(x => !options.after || x.published.isAfter(options.after))
+            .filter(x => !options.before || x.published.isBefore(options.before))
             .orderBy(x => [x.published.unix(), x.updated.unix(), x.pos], true)
         if (options.offset) {
             s = s.skip(options.offset)

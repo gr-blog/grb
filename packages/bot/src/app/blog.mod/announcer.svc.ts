@@ -41,7 +41,13 @@ export class AnnouncerService {
         }
         const cutoffDate = dayjs().subtract(cutoffMs, "ms")
         const blogApi = getBlogApi(this._db.hostname)
-        let posts = await blogApi.getPosts(15).toArray().pull()
+        let posts = await blogApi
+            .getPosts({
+                count: 15,
+                after: cutoffDate.unix()
+            })
+            .toArray()
+            .pull()
         logger.debug("Fetched posts", {
             posts: posts.map(post => post.slug)
         })

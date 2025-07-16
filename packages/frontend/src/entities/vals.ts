@@ -16,6 +16,7 @@ export const zDayjs = z.custom<Dayjs>(
 export const zDayjsLike = zDayjs.or(
     z
         .string()
+        .or(z.number())
         .transform(v => dayjs(v))
         .refine(x => {
             return dayjs.isDayjs(x) && x.isValid()

@@ -1,7 +1,9 @@
 import { getBlogApi } from "@/api"
 import DigestBody from "@/newsletter-parts/digest"
+import dayjs from "dayjs"
 import type { Metadata } from "next"
 import { headers } from "next/headers"
+import { notFound } from "next/navigation"
 import { Framing } from "../../framing"
 
 function formatPreview(series: string[]) {
@@ -24,15 +26,14 @@ export default async function DigestPage() {
     const posts = await api
         .getPosts({
             format: "listing",
-            limit: 3
+            limit: 3,
+            after: dayjs().subtract(7, "day").subtract(1, "second").unix()
         })
         .toSeq()
         .pull()
-    const allSeries = posts
-        .map(p => p.series.title)
-        .uniq()
-        .toArray()
-        .pull()
+    if (posts.count().pull() === 0) {
+        notFound()
+    }
 
     return (
         <Framing api={api}>

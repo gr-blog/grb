@@ -46,6 +46,8 @@ export const PostSearchOptions = z.object({
     series: z.string().optional(),
     offset: z.number().optional(),
     limit: z.number().optional(),
+    before: z.string().datetime().or(z.number()).optional(),
+    after: z.string().datetime().or(z.number()).optional(),
     format: PostFormat
 })
 
