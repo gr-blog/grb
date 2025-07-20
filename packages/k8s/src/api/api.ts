@@ -28,7 +28,7 @@ export default W.Scope(namespace)
                     $env: {
                         DATA_SOURCE: "github",
                         BOT_API: addr,
-                        LOG_LEVEL: "warn",
+                        LOG_LEVEL: "debug",
                         API_KEY_MOOSEND: {
                             $ref: secret_moosend,
                             key: "API_KEY_MOOSEND"
