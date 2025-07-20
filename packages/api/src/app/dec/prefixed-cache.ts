@@ -7,13 +7,16 @@ import { BLOG_ID } from "./blog.js"
     scope: Scope.REQUEST
 })
 export class PrefixedCache implements Cache {
+    private _extraPrefix: string | undefined
     constructor(
         @Inject(CACHE_MANAGER) private readonly inner: Cache,
         @Inject(BLOG_ID) private readonly _blog: string
     ) {}
 
     morePrefix(prefix: string): PrefixedCache {
-        return new PrefixedCache(this.inner, `${this._blog}:${prefix}`)
+        const prefixedNew = new PrefixedCache(this.inner, this._blog)
+        prefixedNew._extraPrefix = [this._extraPrefix, prefix].filter(Boolean).join(":")
+        return prefixedNew
     }
 
     get blog() {
@@ -21,7 +24,7 @@ export class PrefixedCache implements Cache {
     }
 
     private prefixed(key: string): string {
-        return `${this._blog}:${key}`
+        return [this._blog, this._extraPrefix, key].filter(Boolean).join(":")
     }
 
     async get<T>(key: string): Promise<T | null> {
