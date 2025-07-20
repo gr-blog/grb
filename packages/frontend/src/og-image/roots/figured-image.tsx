@@ -13,6 +13,8 @@ export function FiguredImage({ title, figureUrl, site }: FiguredImageProps) {
             <img
                 src={figureUrl}
                 alt={title}
+                width={500}
+                height={500}
                 style={{
                     width: "70%",
                     opacity: 0.8,

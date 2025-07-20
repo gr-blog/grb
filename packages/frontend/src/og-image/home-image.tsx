@@ -3,7 +3,6 @@ import AlignmentCanvas from "./parts/alignment-canvas"
 import BackgroundLogo from "./parts/background-logo"
 import LargeText from "./parts/large-text"
 import { clearTitleStyle } from "./parts/readable-title-style"
-import SmallText from "./parts/small-text"
 import ImageLayout from "./roots/image-layout"
 
 export function homeImage(metadata: BlogMeta) {
@@ -11,27 +10,19 @@ export function homeImage(metadata: BlogMeta) {
     return (
         <ImageLayout>
             <BackgroundLogo />
-            <AlignmentCanvas>
-                <LargeText style={clearTitleStyle("white")}>
-                    <div>{metadata.title}</div>
-                </LargeText>
-                <SmallText
+            <AlignmentCanvas style={{}}>
+                <LargeText
                     style={{
-                        textTransform: "lowercase",
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                        justifyContent: "flex-start"
+                        ...clearTitleStyle("white"),
+                        width: "100%",
+                        fontSize: "2em",
+                        textAlign: "center",
+                        justifyContent: "center",
+                        alignItems: "center"
                     }}
                 >
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "column"
-                        }}
-                    >
-                        {topicsDivs}
-                    </div>
-                </SmallText>
+                    <div>{metadata.title}</div>
+                </LargeText>
             </AlignmentCanvas>
         </ImageLayout>
     )

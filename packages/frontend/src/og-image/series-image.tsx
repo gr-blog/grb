@@ -15,7 +15,16 @@ export function seriesImage(
         <ImageLayout>
             <BackgroundLogo />
             <AlignmentCanvas>
-                <LargeText style={clearTitleStyle("white")}>
+                <LargeText
+                    style={{
+                        ...clearTitleStyle("white"),
+                        width: "100%",
+                        fontSize: "2em",
+                        textAlign: "center",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}
+                >
                     <div
                         style={{
                             color: series.color,
@@ -28,7 +37,8 @@ export function seriesImage(
                 </LargeText>
                 <SmallText
                     style={{
-                        textTransform: "lowercase"
+                        textTransform: "lowercase",
+                        color: "#CECECEFF"
                     }}
                 >
                     {series!.tagline}
