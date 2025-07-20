@@ -51,7 +51,7 @@ export default async function PostPage({ params: { slug } }: { params: { slug: s
     let isCached = !!cachedProse
     cachedProse = cachedProse ?? (
         <Prose
-            content={post.body}
+            content={api.resolvePlaceholderUrl(post.body)!}
             cacheKey={`post:${post.slug}:${post.fingerprint}`}
             slug={post.slug}
         />

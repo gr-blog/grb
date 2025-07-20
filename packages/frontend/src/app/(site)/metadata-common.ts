@@ -1,5 +1,5 @@
 export const shareImageProperties = {
-    width: 1280,
+    width: 1200,
     height: 675,
     type: "image/png"
 }

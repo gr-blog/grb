@@ -8,14 +8,11 @@ export default function LargeText({
     return (
         <div
             style={{
-                alignSelf: "flex-start",
-                justifySelf: "flex-start",
                 padding: 0,
                 margin: 0,
                 display: "flex",
-                flexDirection: "row",
+                width: "60%",
                 color: "grey",
-                marginTop: "13%",
                 ...style
             }}
         >

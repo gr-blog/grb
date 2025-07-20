@@ -1,17 +1,17 @@
-import { CACHE_MANAGER } from "@nestjs/cache-manager"
 import { Inject, Injectable } from "@nestjs/common"
 import { Octokit } from "@octokit/rest"
 import dayjs from "dayjs"
 import got from "got"
 import {
     catchError,
+    concatMap,
     distinctUntilChanged,
     mergeMap,
     skip,
     Subscription,
-    switchMap,
     timer
 } from "rxjs"
+import { DATA_SOURCE } from "../dec/disk.js"
 import { OCTOKIT } from "../dec/octokit.js"
 import { PrefixedCache } from "../dec/prefixed-cache.js"
 import { GitHubInfo } from "./github-info.js"
@@ -26,8 +26,9 @@ export class GithubPollerService {
     private readonly _pollers: Map<string, GithubPoller> = new Map()
     constructor(
         @Inject(OCTOKIT) private readonly _octokit: Octokit,
-        @Inject(CACHE_MANAGER) private readonly _cache: PrefixedCache,
-        private readonly _logger: MyLoggerService
+        private readonly _cache: PrefixedCache,
+        private readonly _logger: MyLoggerService,
+        @Inject(DATA_SOURCE) dataSource: string
     ) {
         this._logger.child({
             part: "GitHubPoll"
@@ -40,13 +41,14 @@ export class GithubPollerService {
         }
         this._logger.log(`Starting polling for repo ${blogId}`)
         const info = new GitHubInfo(blogId)
-        const poller = timer(0, 45_000)
+        const poller = timer(0, 120_000)
             .pipe(
-                switchMap(() => this._getHead(info)),
+                concatMap(() => this._getHead(info)),
                 catchError(err => {
                     this._logger.error(`Error polling repo ${blogId}`, {
                         error: err
                     })
+
                     return []
                 }),
                 distinctUntilChanged((a, b) => a.sha === b.sha),

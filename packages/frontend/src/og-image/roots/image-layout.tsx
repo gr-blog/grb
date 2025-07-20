@@ -1,6 +1,4 @@
-import { innerUrl } from "@/app/(site)/inner-urls"
 import { shareImageProperties } from "@/app/(site)/metadata-common"
-import shareBackground from "@/images/og-background.jpg"
 
 export interface ImageLayoutProps {
     children: React.ReactNode
@@ -11,14 +9,14 @@ export default function ImageLayout({ children, style }: ImageLayoutProps) {
         <main
             className="image-layout"
             style={{
-                fontSize: "5.5rem",
+                fontSize: "3.5rem",
                 width: shareImageProperties.width,
                 height: shareImageProperties.height,
-                backgroundImage: `url(${innerUrl`${shareBackground.src}`})`,
+                backgroundColor: "#1c1a28",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "flex-end",
+                justifyContent: "center",
                 ...style
             }}
         >

@@ -53,7 +53,7 @@ export async function generateMetadata() {
         authors: ["GregRos"],
         alternates: {
             types: {
-                "application/rss+xml": "/rss.xml"
+                "application/rss+xml": "/api/rss.xml"
             }
         },
         metadataBase: new URL(`https://${urls.home()}`),

@@ -16,6 +16,7 @@ export const PostFm = z.object({
     title: z.string(),
     heading: z.string().optional(),
     hidden: z.boolean().default(false),
+    figure: z.string().optional(),
     published: z
         .date()
         .transform(v => dayjs(v))
@@ -47,6 +48,7 @@ export const PostFile = PostFingerprintInfo.extend({
     fingerprint: z.string(),
     pos: z.number().int(),
     excerpt: z.string(),
+    figure: z.string().optional(),
     description: z.string(),
     headings: z.array(Heading)
 })

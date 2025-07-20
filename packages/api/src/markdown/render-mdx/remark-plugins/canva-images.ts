@@ -2,6 +2,7 @@ import { isCanvaLanguage, parseMeta } from "canva-embed-parser"
 import type { Code, Root } from "mdast"
 import { visit } from "unist-util-visit"
 import { VFile } from "vfile"
+import { getImageUrlWithPlaceholder } from "../../../urls/image.js"
 import { PluginList } from "../plugin.js"
 
 export const canvaCodeBlockToExportedImage = PluginList.create([
@@ -15,7 +16,7 @@ export const canvaCodeBlockToExportedImage = PluginList.create([
                 let { key, format, alt, size } = props
                 format ??= "webp"
                 const postName = file.basename!.replace(".post.md", "")
-                const blogName = file.data.blog
+                const blogName = file.data.blog as string
                 parent?.children.splice(index!, 1, {
                     type: "mdxJsxFlowElement",
                     name: "div",
@@ -34,7 +35,12 @@ export const canvaCodeBlockToExportedImage = PluginList.create([
                                 {
                                     type: "mdxJsxAttribute",
                                     name: "src",
-                                    value: `####GRB_API####/${blogName}/images/${postName}/${key}?format=${format}`
+                                    value: getImageUrlWithPlaceholder(
+                                        blogName,
+                                        postName,
+                                        key,
+                                        format
+                                    )
                                 },
                                 {
                                     type: "mdxJsxAttribute",

@@ -44,6 +44,13 @@ export class BlogApi {
         private readonly _realHost: string
     ) {}
 
+    resolvePlaceholderUrl(content: string | undefined) {
+        if (!content) {
+            return content
+        }
+        return content.replaceAll("####GRB_API####", GRB_API)
+    }
+
     get blogHostname() {
         return this._blog
     }

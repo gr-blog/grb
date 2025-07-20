@@ -1,4 +1,3 @@
-import { CACHE_MANAGER } from "@nestjs/cache-manager"
 import { Inject, Injectable, NotFoundException, Scope } from "@nestjs/common"
 import dayjs from "dayjs"
 import { aseq } from "doddle"
@@ -8,6 +7,7 @@ import path, { basename } from "path"
 import { generateFingerprint, Post, PostFile, PostFm } from "../../entities/post.js"
 import { createInternalLinkParser } from "../../markdown/parsing/preprocess-interlinks.js"
 import { processMarkdownContents } from "../../markdown/parsing/process-markdown.js"
+import { getImageUrlWithPlaceholder } from "../../urls/image.js"
 import { PrefixedCache } from "../dec/prefixed-cache.js"
 import { _DataService, DATA_SERVICE } from "./data.js"
 import { MyLoggerService } from "./logger.s.js"
@@ -19,7 +19,7 @@ export class PostFileService {
     constructor(
         private readonly _logger: MyLoggerService,
         @Inject(DATA_SERVICE) private readonly _diskService: _DataService,
-        @Inject(CACHE_MANAGER) private readonly _cache: PrefixedCache
+        private readonly _cache: PrefixedCache
     ) {
         this._logger = this._logger.child({
             part: "PostFile"
@@ -71,6 +71,12 @@ export class PostFileService {
         return { content: fmResult.body, frontmatter, ...decomposed }
     }
 
+    private _getFigureUrl(slug: string, post: PostFm) {
+        return post.figure
+            ? getImageUrlWithPlaceholder(this._cache.blog, slug, post.figure, "png")
+            : undefined
+    }
+
     private async _readPostFile(filePath: string): Promise<PostFile> {
         const logger = this._logger.child({
             filePath: filePath
@@ -103,6 +109,7 @@ export class PostFileService {
             fingerprint: generateFingerprint(forFingerprint),
             path: filePath,
             pos: pos,
+            figure: this._getFigureUrl(slug, frontmatter),
             title: frontmatter.title,
             hidden: frontmatter.hidden,
             slug: slug,

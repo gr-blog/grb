@@ -3,17 +3,11 @@ export default function Signature({ text }: { text: string }) {
         <div
             style={{
                 position: "absolute",
-                bottom: "0",
-                fontSize: "3rem",
+                bottom: "20px",
+                width: "193px",
+                fontSize: "2rem",
                 right: "0",
-                padding: "1rem",
-                paddingLeft: "2rem",
-                paddingRight: "2rem",
-                color: "#000",
-                opacity: 0.8,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between"
+                color: "#B3B2B2FF"
             }}
         >
             {text}

@@ -12,6 +12,10 @@ export class PrefixedCache implements Cache {
         @Inject(BLOG_ID) private readonly _blog: string
     ) {}
 
+    get blog() {
+        return this._blog
+    }
+
     private prefixed(key: string): string {
         return `${this._blog}${key}`
     }

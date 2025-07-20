@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getBlogApi } from "./api"
+import { routerLogger } from "./app/(site)/logger"
 
 const blacklist = [
     ".yaml",
@@ -17,6 +18,7 @@ const blacklist = [
     "nodemailer"
 ]
 export async function middleware(req: NextRequest) {
+    routerLogger(`[Access Log] ${req.method} ${req.nextUrl.pathname}`)
     const { pathname } = req.nextUrl
     for (const pattern of blacklist) {
         if (pathname.includes(pattern)) {

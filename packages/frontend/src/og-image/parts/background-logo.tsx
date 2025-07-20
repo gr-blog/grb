@@ -11,11 +11,10 @@ export default function TransparentLogo(style: React.CSSProperties) {
             width="500"
             style={{
                 ...style,
-                alignSelf: "flex-end",
-                marginRight: "3rem",
-                marginBottom: "3rem",
-                justifySelf: "flex-end",
-                opacity: 0.55
+                alignSelf: "center",
+                justifySelf: "center",
+                opacity: 0.55,
+                marginBottom: "20px"
             }}
         />
     )

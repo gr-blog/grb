@@ -38,6 +38,7 @@ export const PostFile = z.object({
     slug: Slug,
     excerpt: z.string(),
     seriesName: Slug,
+    figure: z.string().optional(),
     pos: z.number().int(),
     headings: z.array(z.lazy(() => Heading)),
     description: z.string()

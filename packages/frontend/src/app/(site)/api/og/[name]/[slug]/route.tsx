@@ -6,5 +6,5 @@ export async function GET(req: Request, { params: { slug } }: { params: { slug: 
     const api = getBlogApi(req)
     const post = await api.getPost({ slug, format: "preview" })
     const meta = await api.getMeta()
-    return imageResponse(postImage(post!, meta))
+    return imageResponse(await postImage(post!, api))
 }

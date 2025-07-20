@@ -1,38 +1,21 @@
-import type { BlogMeta } from "@/entities/blog"
+import type { BlogApi } from "@/api"
 import type { PostPreviewDtoWithSeries } from "@/entities/dto/post"
-import AlignmentCanvas from "./parts/alignment-canvas"
-import BackgroundLogo from "./parts/background-logo"
-import ImageLayout from "./parts/image-layout"
-import LargeText from "./parts/large-text"
-import { postTitleStyle } from "./parts/readable-title-style"
-import Signature from "./parts/signature"
-import SmallText from "./parts/small-text"
+import { FiguredImage } from "./roots/figured-image"
+import { UnfiguredImage } from "./roots/unfigured-image"
 
-export function postImage(post: PostPreviewDtoWithSeries, meta: BlogMeta) {
+export async function postImage(post: PostPreviewDtoWithSeries, api: BlogApi) {
     const series = post.series
+    const meta = await api.getMeta()
+    const figureTrueUrl = api.resolvePlaceholderUrl(post.figure)
+    if (figureTrueUrl) {
+        return <FiguredImage title={post.title} figureUrl={figureTrueUrl} site={meta.title} />
+    }
     return (
-        <ImageLayout>
-            <BackgroundLogo />
-            <AlignmentCanvas>
-                <LargeText style={postTitleStyle()}>{post.title}</LargeText>
-                <SmallText>
-                    {" "}
-                    <div>a post in the</div>
-                    <div
-                        style={{
-                            color: series.color,
-                            paddingLeft: "0.3em",
-                            paddingRight: "0.3em",
-                            fontFamily: "FiraSans Bold"
-                        }}
-                    >
-                        {series.title}
-                    </div>
-                    <div>series</div>
-                </SmallText>
-            </AlignmentCanvas>
-
-            <Signature text={meta.title} />
-        </ImageLayout>
+        <UnfiguredImage
+            title={post.title}
+            series={series.title}
+            site={meta.title}
+            seriesColor={series.color}
+        />
     )
 }

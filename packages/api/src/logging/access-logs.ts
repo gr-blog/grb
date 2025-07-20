@@ -13,7 +13,7 @@ export class AccessLogMiddleware implements NestMiddleware {
 
         res.on("finish", () => {
             const isOk = res.statusCode >= 200 && res.statusCode < 300
-            this.log.verbose(
+            this.log.debug(
                 `${isOk ? "✅" : "❌"} Δ${Date.now() - start}ms ${method} ${truncate(originalUrl, {
                     length: 100,
                     omission: "⋯"

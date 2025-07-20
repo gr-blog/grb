@@ -11,13 +11,12 @@ export default function CaptionCanvas({ children, style }: AlignmentCanvasProps)
                 top: 0,
                 left: 0,
                 width: "100%",
-                paddingLeft: "30px",
-                paddingTop: "1rem",
+                textAlign: "center",
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
+                alignItems: "center",
+                justifyContent: "center",
                 ...style
             }}
         >

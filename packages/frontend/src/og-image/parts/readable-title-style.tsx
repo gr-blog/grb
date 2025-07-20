@@ -1,7 +1,6 @@
 export function titleStyle(): React.CSSProperties {
     return {
         display: "flex",
-        flexDirection: "row",
         textShadow: "5px 5px 4px black"
     }
 }
