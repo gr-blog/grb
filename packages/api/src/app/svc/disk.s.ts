@@ -21,7 +21,7 @@ export class DiskService extends _DataService {
         _logger: MyLoggerService,
         _cache: PrefixedCache
     ) {
-        super(_logger, _cache)
+        super(_logger, _cache.morePrefix("disk"))
     }
 
     private get _blogSubpath(): string {

@@ -12,12 +12,16 @@ export class PrefixedCache implements Cache {
         @Inject(BLOG_ID) private readonly _blog: string
     ) {}
 
+    morePrefix(prefix: string): PrefixedCache {
+        return new PrefixedCache(this.inner, `${this._blog}:${prefix}`)
+    }
+
     get blog() {
         return this._blog
     }
 
     private prefixed(key: string): string {
-        return `${this._blog}${key}`
+        return `${this._blog}:${key}`
     }
 
     async get<T>(key: string): Promise<T | null> {

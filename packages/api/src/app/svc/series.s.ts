@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
 import { aseq, seq } from "doddle"
 import { Series, SeriesFile } from "../../entities/series.js"
-import { PrefixedCache } from "../dec/prefixed-cache.js"
 import { FileNotFoundError } from "../errors.js"
 import { MyLoggerService } from "./logger.s.js"
 import { PostFileService } from "./post-file.s.js"
@@ -12,8 +11,7 @@ export class SeriesService {
     constructor(
         private readonly _logger: MyLoggerService,
         private readonly _postFileService: PostFileService,
-        private readonly _seriesFileService: SeriesFileService,
-        private readonly _cache: PrefixedCache
+        private readonly _seriesFileService: SeriesFileService
     ) {}
 
     private async _fillSeriesData(rawSeries: SeriesFile) {

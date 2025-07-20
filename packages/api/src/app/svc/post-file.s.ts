@@ -24,6 +24,7 @@ export class PostFileService {
         this._logger = this._logger.child({
             part: "PostFile"
         })
+        this._cache = this._cache.morePrefix("post-file")
     }
 
     async getInternalLinkParser() {

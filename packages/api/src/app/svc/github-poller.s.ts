@@ -33,6 +33,7 @@ export class GithubPollerService {
         this._logger.child({
             part: "GitHubPoll"
         })
+        this._cache = this._cache.morePrefix("github-poll")
     }
 
     ensurePolling(blogId: string) {

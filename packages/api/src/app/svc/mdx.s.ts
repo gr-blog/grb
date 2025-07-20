@@ -19,6 +19,7 @@ export class MdxCompilerService {
         this._logger = this._logger.child({
             part: "MdxCompiler"
         })
+        this._cache = this._cache.morePrefix("mdx")
     }
 
     async compile(prefix: string, name: string, source: string) {

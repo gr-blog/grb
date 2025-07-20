@@ -25,7 +25,7 @@ export class GithubService extends _DataService {
         _cache: PrefixedCache,
         private readonly _poller: GithubPollerService
     ) {
-        super(_logger, _cache)
+        super(_logger, _cache.morePrefix("github"))
         this._githubInfo = new GitHubInfo(this._blog)
         this._poller.ensurePolling(this._blog)
     }
