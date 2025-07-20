@@ -70,7 +70,10 @@ export class GithubPollerService {
 
                 mergeMap(async () => {
                     await this._cache.clear()
-                    await got(`${process.env.BOT_API}/announce`).catch(err => {
+                    await got({
+                        method: "POST",
+                        url: `${process.env.BOT_API}/announce`
+                    }).catch(err => {
                         this._logger.error("Failed API call to announcer", {
                             error: err.message,
                             stack: err.stack
