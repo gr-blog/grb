@@ -17,7 +17,6 @@ export function FiguredImage({ title, figureUrl, site }: FiguredImageProps) {
                 height={500}
                 style={{
                     width: "70%",
-                    opacity: 0.8,
                     alignSelf: "center",
                     justifySelf: "center"
                 }}
