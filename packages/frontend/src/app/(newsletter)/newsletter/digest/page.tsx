@@ -58,7 +58,7 @@ export async function generateMetadata() {
         .toArray()
         .pull()
     return {
-        title: `This week's posts on ${api.blogHostname}`,
+        title: `This week from ${api.blogHostname}`,
         description: formatPreview(allSeries)
     } as Metadata
 }
