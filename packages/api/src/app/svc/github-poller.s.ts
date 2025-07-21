@@ -23,7 +23,6 @@ interface GithubPoller {
 }
 @Injectable()
 export class GithubPollerService {
-    private readonly _pollers: Map<string, GithubPoller> = new Map()
     constructor(
         @Inject(OCTOKIT) private readonly _octokit: Octokit,
         private readonly _cache: PrefixedCache,
@@ -36,8 +35,8 @@ export class GithubPollerService {
         this._cache = this._cache.morePrefix("github-poll")
     }
 
-    ensurePolling(blogId: string) {
-        if (this._pollers.has(blogId)) {
+    async ensurePolling(blogId: string) {
+        if (await this._cache.get(blogId)) {
             return
         }
         this._logger.log(`Starting polling for repo ${blogId}`)
@@ -84,13 +83,14 @@ export class GithubPollerService {
             )
             .subscribe()
 
-        this._pollers.set(blogId, {
+        await this._cache.set(blogId, {
             info,
             sub: poller
         })
     }
 
     private async _getHead(info: GitHubInfo) {
+        this._logger.debug(`Fetching head for ${info.location()}`)
         const { data } = await this._octokit.rest.repos.getBranch(info.location())
         return data.commit
     }
