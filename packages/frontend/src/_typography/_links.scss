@@ -37,10 +37,10 @@ $external-link-color: rgb(209, 209, 209);
     &:has(code) {
         @include code_e.code-inline-spacing;
     }
+    text-decoration: underline;
+    text-decoration-thickness: 0.07em;
     @include link-style() {
         color: $link-color;
-        text-decoration: underline;
-        text-decoration-thickness: 0.07em;
         @include spacing-none;
         &:hover {
             @include _hover;
