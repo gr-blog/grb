@@ -17,7 +17,14 @@ export default zr.checked(
                     className="series-big-link__bar"
                     style={{ width: getWidth(series.count, max) }}
                 ></div>
-                <div className="series-big-link__count">{series.count}</div>
+                {/* <div
+                    className="series-big-link__count"
+                    style={{
+                        display: "none"
+                    }}
+                >
+                    {series.count}
+                </div> */}
                 <div className="series-big-link__tagline">{series.tagline}</div>
             </SeriesLink>
         )
