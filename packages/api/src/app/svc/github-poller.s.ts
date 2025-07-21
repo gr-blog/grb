@@ -42,7 +42,7 @@ export class GithubPollerService {
         }
         this._logger.log(`Starting polling for repo ${blogId}`)
         const info = new GitHubInfo(blogId)
-        const poller = timer(0, 120_000)
+        const poller = timer(0, 600_000)
             .pipe(
                 concatMap(() => this._getHead(info)),
                 catchError(err => {
