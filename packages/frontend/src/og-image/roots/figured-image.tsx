@@ -1,6 +1,3 @@
-import AlignmentCanvas from "../parts/alignment-canvas"
-import TransparentLogo from "../parts/background-logo"
-import Signature from "../parts/signature"
 import ImageLayout from "./image-layout"
 export interface FiguredImageProps {
     title: string
@@ -21,17 +18,6 @@ export function FiguredImage({ title, figureUrl, site }: FiguredImageProps) {
                     justifySelf: "center"
                 }}
             />
-            <AlignmentCanvas>
-                <TransparentLogo
-                    opacity={0.4}
-                    position="absolute"
-                    width="200px"
-                    height="200px"
-                    bottom="10px"
-                    right="10px"
-                />
-                <Signature text={site} />
-            </AlignmentCanvas>
         </ImageLayout>
     )
 }

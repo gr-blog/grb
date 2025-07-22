@@ -15,6 +15,7 @@ export function seriesImage(
         <ImageLayout>
             <BackgroundLogo />
             <AlignmentCanvas>
+                <Signature text={meta.title} />
                 <LargeText
                     style={{
                         ...clearTitleStyle("white"),
@@ -44,7 +45,6 @@ export function seriesImage(
                     {series!.tagline}
                 </SmallText>
             </AlignmentCanvas>
-            <Signature text={meta.title} />
         </ImageLayout>
     )
 }
