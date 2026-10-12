@@ -2560,6 +2560,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/humanize-duration@npm:^3.27.4":
+  version: 3.27.4
+  resolution: "@types/humanize-duration@npm:3.27.4"
+  checksum: 10c0/0d92b036ac284c4ae248dca6efa826f9d397e7369f2d5e11de1813e05b32fd44e3d696f999acdc5a7eb412efc33668b8a68f6ad671392c0bbcf797a6329d674f
+  languageName: node
+  linkType: hard
+
 "@types/js-yaml@npm:^4, @types/js-yaml@npm:^4.0.9":
   version: 4.0.9
   resolution: "@types/js-yaml@npm:4.0.9"
@@ -5871,6 +5878,7 @@ __metadata:
     "@next/third-parties": "npm:^15.0.4"
     "@react-email/components": "npm:^0.1.1"
     "@types/hast": "npm:^3.0.4"
+    "@types/humanize-duration": "npm:^3.27.4"
     "@types/js-yaml": "npm:^4.0.9"
     "@types/mdx": "npm:^2.0.13"
     "@types/node": "npm:^20.9.4"
@@ -5883,6 +5891,8 @@ __metadata:
     cache-manager: "npm:^7.0.1"
     dayjs: "npm:^1.11.13"
     doddle: "npm:^6.0.0"
+    humanize-duration: "npm:^3.35.0"
+    humanize-time: "npm:^0.0.3"
     js-yaml: "npm:^4.1.0"
     next: "npm:14.2.7"
     next-mdx-remote-client: "patch:next-mdx-remote-client@npm%3A2.1.2#~/.yarn/patches/next-mdx-remote-client-npm-2.1.2-7b31f75365.patch"
@@ -6628,6 +6638,20 @@ __metadata:
     agent-base: "npm:^7.1.2"
     debug: "npm:4"
   checksum: 10c0/f729219bc735edb621fa30e6e84e60ee5d00802b8247aac0d7b79b0bd6d4b3294737a337b93b86a0bd9e68099d031858a39260c976dc14cdbba238ba1f8779ac
+  languageName: node
+  linkType: hard
+
+"humanize-duration@npm:^3.35.0":
+  version: 3.35.0
+  resolution: "humanize-duration@npm:3.35.0"
+  checksum: 10c0/6ef662531f9bf713fb66ea7a33c33bd7fe3a033851454dc8688d6c85a97814a829db4c54be5db96dca3fb5d12bc55ffe146e4663636b425e0779d5b897e22191
+  languageName: node
+  linkType: hard
+
+"humanize-time@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "humanize-time@npm:0.0.3"
+  checksum: 10c0/bc797656e38f0dcd18963c15bfa00f884e3cd626a305986e76bd944379cb31a8a58d42fc039d2ba5d3b79575194c5a021a0aad2523493977486ab1ab5a0046b5
   languageName: node
   linkType: hard
 

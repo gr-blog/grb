@@ -18,11 +18,14 @@
     "prettier:check": "prettier --check 'packages/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'",
     "prettier:fix": "prettier --write 'packages/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'",
     "tidy": "yarn install && run-s prettier:fix build:clean",
-    "watch": "yarn workspaces foreach -P run watch"
+    "watch": "yarn workspaces foreach --all --parallel run watch"
   },
   "lint-staged": {
     "*.{ts,mts,cts,js,mjs,cjs}": "node_modules/.bin/eslint --cache --fix",
     "'src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}'": "node_modules/.bin/prettier --write"
+  },
+  "dependencies": {
+    "doddle": "^6.0.0"
   },
   "devDependencies": {
     "@gregros/eslint-config": "^0.7.1",
@@ -42,8 +45,5 @@
     "typescript": "^5.8.3"
   },
   "packageManager": "yarn@4.9.2",
-  "sourcesRoot": "src",
-  "dependencies": {
-    "doddle": "^6.0.0"
-  }
+  "sourcesRoot": "src"
 }
